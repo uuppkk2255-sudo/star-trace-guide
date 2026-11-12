@@ -60,8 +60,9 @@ h1,h2,h3{text-wrap:balance}
 .hero h1 em{font-style:normal;color:var(--star)}
 .hero .intro{color:var(--night-sub);margin:0;max-width:32em}
 .pin{margin:0;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:20px;padding:20px 20px 16px;backdrop-filter:blur(6px)}
-.pin .scroll{overflow-x:auto}
-.pin svg{display:block;width:100%;min-width:520px;height:auto}
+.pin svg{display:block;width:100%;height:auto}
+.pin .narrow{display:none}
+@media (max-width:560px){.pin .wide{display:none}.pin .narrow{display:block}.pin{padding:16px 14px 14px}}
 .pin text{font-family:var(--f-body)}
 .pin figcaption{font-size:14px;color:var(--night-sub);margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08)}
 .pin figcaption strong{color:var(--star);font-weight:500}
@@ -194,8 +195,7 @@ footer p{margin:4px 0}
     <h1>STAR TRACE 이어폰,<br><em>무선</em>으로 쓸까 그대로 쓸까</h1>
     <p class="intro">굿즈 인이어 이어폰을 블루투스로 바꾸고 싶은 분, 음질을 올리고 싶은 분을 위한 정리입니다. 커넥터 규격부터 확인하세요.</p>
     <figure class="pin">
-      <div class="scroll">
-      <svg viewBox="0 0 640 170" role="img" aria-label="이어폰 쪽 튀어나온 소켓에 케이블 쪽 덮개형 플러그가 씌워지는 C핀 구조">
+      <svg class="wide" viewBox="0 0 640 170" role="img" aria-label="이어폰 쪽 튀어나온 소켓에 케이블 쪽 덮개형 플러그가 씌워지는 C핀 구조">
         <defs><marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="var(--night-sub)"/></marker></defs>
         <rect x="40" y="40" width="180" height="90" rx="44" fill="none" stroke="var(--night-sub)" stroke-width="1.5"/>
         <circle cx="96" cy="85" r="18" fill="none" stroke="var(--night-sub)" stroke-width="1" stroke-dasharray="3 4"/>
@@ -211,7 +211,21 @@ footer p{margin:4px 0}
         <path d="M420 85 C 480 85, 520 60, 600 70" fill="none" stroke="var(--night-sub)" stroke-width="3" stroke-linecap="round"/>
         <text x="540" y="104" text-anchor="middle" font-size="13" fill="var(--night-sub)">케이블 / 블루투스 모듈</text>
       </svg>
-      </div>
+      <svg class="narrow" viewBox="0 0 360 170" role="img" aria-label="이어폰 쪽 튀어나온 소켓에 케이블 쪽 덮개형 플러그가 씌워지는 C핀 구조">
+        <defs><marker id="ar2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="var(--night-sub)"/></marker></defs>
+        <rect x="8" y="58" width="92" height="70" rx="35" fill="none" stroke="var(--night-sub)" stroke-width="1.5"/>
+        <text x="54" y="150" text-anchor="middle" font-size="13" fill="var(--night-sub)">이어폰 헤드</text>
+        <rect x="100" y="73" width="36" height="40" rx="4" fill="var(--night-2)" stroke="var(--night-ink)" stroke-width="1.5"/>
+        <text x="118" y="60" text-anchor="middle" font-size="13" fill="var(--night-ink)">튀어나온 소켓</text>
+        <line x1="136" y1="85" x2="160" y2="85" stroke="var(--star)" stroke-width="4" stroke-linecap="round"/>
+        <line x1="136" y1="101" x2="160" y2="101" stroke="var(--star)" stroke-width="4" stroke-linecap="round"/>
+        <text x="150" y="140" text-anchor="middle" font-size="13" fill="var(--star)">0.78mm 핀</text>
+        <path d="M168 93 h16" stroke="var(--night-sub)" stroke-width="1.5" marker-end="url(#ar2)"/>
+        <path d="M194 62 h56 v62 h-56 v-10 h42 v-42 h-42 z" fill="var(--night-2)" stroke="var(--night-ink)" stroke-width="1.5"/>
+        <text x="226" y="48" text-anchor="middle" font-size="13" fill="var(--night-ink)">덮개형 플러그</text>
+        <path d="M250 93 C 285 93, 310 78, 352 82" fill="none" stroke="var(--night-sub)" stroke-width="3" stroke-linecap="round"/>
+        <text x="300" y="122" text-anchor="middle" font-size="13" fill="var(--night-sub)">케이블 / 모듈</text>
+      </svg>
       <figcaption>설명서에는 '0.78mm 2-Pin'이라고 적혀 있지만, 소켓이 튀어나온 C핀(QDC형) 구조입니다. <strong>모듈은 반드시 C핀 버전으로 고르세요.</strong></figcaption>
     </figure>
   </div>
