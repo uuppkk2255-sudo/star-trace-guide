@@ -126,6 +126,7 @@ td.m-diff{color:var(--sub);font-size:14px}
 .tag{display:inline-block;font-size:12px;line-height:1.5;padding:2px 9px;border-radius:999px;font-weight:500;white-space:nowrap}
 .tag.ok{color:var(--ok);border:1px solid currentColor}
 .tag.warn{color:var(--warn);border:1px dashed currentColor}
+.tag.likely{color:var(--sub);border:1px dashed currentColor}
 .tag.best{background:linear-gradient(135deg,var(--star),var(--gold));color:var(--night)}
 tr.is-best td{background:var(--gold-soft)}
 tr.is-best td:first-child{box-shadow:inset 3px 0 0 var(--gold)}
@@ -305,7 +306,6 @@ footer p{margin:4px 0}
   <div class="wrap">
     <p>비공식 팬 정보 페이지입니다. 제조사·소속사와 관련이 없습니다.</p>
     <p>가격은 수시로 바뀌니 구매 전 판매 페이지에서 꼭 확인하세요.</p>
-    <p>이 페이지의 일부 링크는 제휴 링크로 바뀔 수 있으며, 링크로 구매 시 수수료를 받을 수 있습니다.</p>
   </div>
 </footer>
 
@@ -337,9 +337,9 @@ const answers = {
 };
 // 알리 API 연동 시 price / asOf 값만 갱신하면 정렬·최저가 표시가 자동으로 바뀝니다
 const modules = [
-  { name:"CCA MX1", diff:"블루투스 6.0, 케이스 800mAh", compat:"ok", compatText:"C핀 장착 확인", price:20000, asOf:"2026.11 구매가", url:"https://www.aliexpress.com/w/wholesale-cca-mx1-c-pin.html" },
-  { name:"KZ AZ15", diff:"aptX 지원(갤럭시 유리), 최대 54시간", compat:"ok", compatText:"C핀 버전 있음", price:null, asOf:"", url:"https://www.aliexpress.com/w/wholesale-kz-az15.html" },
-  { name:"TRN Scallop", diff:"터치 조작, 한쪽 6g, 연결거리 20m", compat:"warn", compatText:"C핀 확인 필요", price:null, asOf:"", url:"https://www.aliexpress.com/w/wholesale-trn-scallop.html" }
+  { name:"CCA MX1", diff:"블루투스 6.0, 케이스 800mAh", compat:"ok", compatText:"C핀 장착 확인", price:null, asOf:"", url:"https://www.aliexpress.com/w/wholesale-cca-mx1-c-pin.html" },
+  { name:"KZ AZ15", diff:"aptX 지원(갤럭시 유리), 최대 54시간", compat:"likely", compatText:"C핀 버전 · 호환 예상", price:null, asOf:"", url:"https://www.aliexpress.com/w/wholesale-kz-az15.html" },
+  { name:"KZ AZ09 Pro", diff:"aptX 지원, 블루투스 5.2", compat:"likely", compatText:"C핀 버전 · 호환 예상", price:null, asOf:"", url:"https://www.aliexpress.com/w/wholesale-kz-az09-pro.html" }
 ];
 function renderModules(){
   const sorted = [...modules].sort((a,b)=>(a.price ?? Infinity)-(b.price ?? Infinity));

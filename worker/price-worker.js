@@ -6,7 +6,7 @@
 const PRODUCTS = {
   "CCA MX1": "상품ID_입력",
   "KZ AZ15": "상품ID_입력",
-  "TRN Scallop": "상품ID_입력",
+  "KZ AZ09 Pro": "상품ID_입력",
 };
 
 const CACHE_SECONDS = 60 * 60 * 3; // 3시간마다 새로 조회
