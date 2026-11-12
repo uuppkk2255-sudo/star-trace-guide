@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>STAR TRACE 이어폰 가이드</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbit&family=IBM+Plex+Sans+KR:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* 레이아웃: 밤하늘 히어로(별자리 + 커넥터 도식) → 목적 선택 → 데이터시트형 사양 → 가격 리스트 → 순서 → FAQ */
+:root{
+  --bg:#EEF1F7; --surface:#FFFFFF; --ink:#141A2E; --sub:#5A6380; --line:#D5DAE6;
+  --gold:#A47C10; --gold-soft:#F6EED6; --ok:#23775A; --warn:#A4521A;
+  --night:#0E1428; --night-2:#25305A; --glow:rgba(242,212,124,.18); --night-ink:#EBEEF8; --night-sub:#9CA5C4; --star:#F2D47C;
+  --shadow:rgba(20,26,46,.35);
+  --f-display:"Orbit","IBM Plex Sans KR",sans-serif;
+  --f-body:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+  color-scheme:light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0A0F1F; --surface:#131A30; --ink:#E6E9F4; --sub:#98A1BF; --line:#252E4A;
+    --gold:#E4BE55; --gold-soft:#2B2615; --ok:#6FCBA0; --warn:#EAA067;
+    --night:#111933; --night-2:#27325C; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0A0F1F; --surface:#131A30; --ink:#E6E9F4; --sub:#98A1BF; --line:#252E4A;
+  --gold:#E4BE55; --gold-soft:#2B2615; --ok:#6FCBA0; --warn:#EAA067;
+  --night:#111933; --night-2:#27325C; color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);
+  font-size:16px;line-height:1.7;word-break:keep-all;-webkit-font-smoothing:antialiased}
+.wrap{max-width:820px;margin:0 auto;padding-inline:20px}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px;border-radius:6px}
+h1,h2,h3{text-wrap:balance}
+
+/* 히어로 */
+.hero{color:var(--night-ink);position:relative;overflow:hidden;
+  background:radial-gradient(60% 80% at 85% 10%,var(--night-2) 0%,transparent 70%),
+             radial-gradient(40% 50% at 10% 100%,var(--glow) 0%,transparent 70%),var(--night)}
+.hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:linear-gradient(90deg,transparent,var(--star),transparent);opacity:.5}
+.hero .wrap{position:relative;padding-block:56px 40px;display:grid;gap:28px}
+.sky{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.sky circle{fill:var(--star)}
+.sky .tw{animation:tw 3.6s ease-in-out infinite}
+.sky .tw:nth-of-type(2n){animation-delay:1.2s}.sky .tw:nth-of-type(3n){animation-delay:2.1s}
+@keyframes tw{0%,100%{opacity:1}50%{opacity:.35}}
+.sky .trace{fill:none;stroke:var(--star);stroke-width:1;opacity:.55;stroke-dasharray:900;stroke-dashoffset:0;animation:trace 2.4s ease-out both}
+@keyframes trace{from{stroke-dashoffset:900}to{stroke-dashoffset:0}}
+.eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--star);margin:0}
+.hero h1{font-family:var(--f-display);font-weight:400;font-size:clamp(30px,6.4vw,50px);line-height:1.22;margin:0;letter-spacing:-0.01em}
+.hero h1 em{font-style:normal;color:var(--star)}
+.hero .intro{color:var(--night-sub);margin:0;max-width:32em}
+.pin{margin:0;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:20px;padding:20px 20px 16px;backdrop-filter:blur(6px)}
+.pin .scroll{overflow-x:auto}
+.pin svg{display:block;width:100%;min-width:520px;height:auto}
+.pin text{font-family:var(--f-body)}
+.pin figcaption{font-size:14px;color:var(--night-sub);margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08)}
+.pin figcaption strong{color:var(--star);font-weight:500}
+
+/* 섹션 공통 */
+section{padding-block:52px}
+section + section{border-top:1px solid var(--line)}
+.sec-head{display:grid;gap:6px;margin-bottom:24px}
+.sec-head .eyebrow{color:var(--gold)}
+.sec-head .eyebrow::before{content:"\2726";margin-right:8px}
+h2{font-family:var(--f-display);font-weight:400;font-size:clamp(22px,4vw,28px);line-height:1.3;margin:0}
+.lead{color:var(--sub);margin:0;max-width:38em}
+
+/* 목적 선택 */
+.goals{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-bottom:14px}
+.goals button{font:inherit;text-align:left;cursor:pointer;display:grid;gap:4px;
+  padding:16px;border-radius:14px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);
+  transition:border-color .15s,background-color .15s}
+.goals button:hover{border-color:var(--sub)}
+.goals .g-name{font-weight:700;font-size:16px}
+.goals .g-cost{font-family:var(--f-mono);font-size:12px;color:var(--sub);font-variant-numeric:tabular-nums}
+.goals button[aria-selected="true"]{background:radial-gradient(120% 140% at 100% 0%,var(--night-2),var(--night));border-color:var(--star);color:var(--night-ink);box-shadow:0 8px 24px -10px var(--glow)}
+.goals button[aria-selected="true"] .g-cost{color:var(--star)}
+@media (max-width:560px){.goals{grid-template-columns:1fr}}
+
+.answer{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:30px;display:grid;gap:18px;box-shadow:0 1px 0 var(--line),0 20px 40px -28px var(--shadow)}
+.answer h3{font-family:var(--f-display);font-weight:400;font-size:clamp(22px,4.4vw,30px);line-height:1.3;margin:0}
+.answer .sub{margin:4px 0 0;color:var(--sub)}
+.answer .why{padding:16px 18px;background:var(--gold-soft);border-radius:12px}
+.answer .why strong{display:block;font-family:var(--f-mono);font-size:12px;letter-spacing:.12em;color:var(--gold);font-weight:500;margin-bottom:4px}
+.answer ul{margin:0;padding:0;list-style:none;display:grid;gap:8px}
+.answer li{position:relative;padding-left:22px}
+.answer li::before{content:"";position:absolute;left:4px;top:.72em;width:7px;height:7px;background:var(--gold);transform:rotate(45deg)}
+.picks{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+.pick{border:1px solid var(--line);border-radius:12px;padding:16px;display:grid;gap:6px;align-content:start;min-width:0}
+.pick-top{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.pick p{margin:0;font-size:14px;color:var(--sub)}
+.pick small{font-family:var(--f-mono);font-size:12px;color:var(--ink)}
+
+/* 사양: 데이터시트 */
+.spec{margin:0;border-top:2px solid var(--ink)}
+.spec div{display:grid;grid-template-columns:150px minmax(0,1fr);gap:16px;padding:13px 0;border-bottom:1px solid var(--line)}
+.spec dt{font-size:14px;color:var(--sub)}
+.spec dd{margin:0;font-weight:500}
+.spec .num{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.spec dd.key{color:var(--gold);font-weight:700}
+@media (max-width:480px){.spec div{grid-template-columns:1fr;gap:2px}}
+
+/* 가격 */
+.refresh{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.refresh button{font:inherit;font-weight:500;font-size:14px;padding:8px 14px;border-radius:999px;border:1.5px solid var(--ink);background:transparent;color:var(--ink);cursor:pointer}
+.refresh button:hover{background:var(--ink);color:var(--bg)}
+.refresh button:disabled{opacity:.5;cursor:wait}
+#priceStatus{font-size:13px;color:var(--sub)}
+.tbl{border:1px solid var(--line);border-radius:20px;background:var(--surface);overflow:hidden;box-shadow:0 20px 40px -30px var(--shadow)}
+table{border-collapse:collapse;width:100%;font-size:15px}
+th,td{padding:14px 16px;text-align:left;border-bottom:1px solid var(--line);vertical-align:middle}
+th{font-family:var(--f-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--sub);font-weight:500}
+tr:last-child td{border-bottom:0}
+td.m-name strong{font-size:16px}
+td.m-diff{color:var(--sub);font-size:14px}
+.tag{display:inline-block;font-size:12px;line-height:1.5;padding:2px 9px;border-radius:999px;font-weight:500;white-space:nowrap}
+.tag.ok{color:var(--ok);border:1px solid currentColor}
+.tag.warn{color:var(--warn);border:1px dashed currentColor}
+.tag.best{background:linear-gradient(135deg,var(--star),var(--gold));color:var(--night)}
+tr.is-best td{background:var(--gold-soft)}
+tr.is-best td:first-child{box-shadow:inset 3px 0 0 var(--gold)}
+.price{font-family:var(--f-mono);font-weight:500;font-size:17px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.price small{display:block;font-family:var(--f-body);font-weight:400;color:var(--sub);font-size:12px}
+.price.none{font-family:var(--f-body);font-size:14px;color:var(--sub)}
+td a{font-weight:500;font-size:14px;text-underline-offset:3px;white-space:nowrap}
+.note{font-size:14px;color:var(--sub);margin:12px 0 0}
+@media (max-width:640px){
+  thead{display:none}
+  table,tbody,tr,td{display:block}
+  tr{padding:16px;border-bottom:1px solid var(--line);display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 12px}
+  tr:last-child{border-bottom:0}
+  td{padding:0;border:0}
+  tr.is-best{background:var(--gold-soft)}
+  tr.is-best td{background:transparent}
+  td.m-name{grid-column:1}
+  td.price{grid-column:2;grid-row:1 / span 2;text-align:right}
+  td.m-diff,td.m-compat{grid-column:1}
+  td.m-link{grid-column:1 / -1;margin-top:4px}
+}
+
+/* 장착 순서 */
+ol.steps{list-style:none;margin:0;padding:0;display:grid;gap:0;counter-reset:s}
+ol.steps li{counter-increment:s;display:grid;grid-template-columns:40px minmax(0,1fr);gap:14px;padding:14px 0;border-bottom:1px solid var(--line)}
+ol.steps li:first-child{border-top:1px solid var(--line)}
+ol.steps li::before{content:counter(s,decimal-leading-zero);font-family:var(--f-mono);font-size:14px;color:var(--gold);padding-top:2px}
+
+/* FAQ */
+.faq{display:grid;gap:8px}
+details{background:var(--surface);border:1px solid var(--line);border-radius:16px;transition:border-color .15s}
+details[open]{border-color:var(--gold)}
+summary{cursor:pointer;padding:16px 18px;font-weight:500;list-style:none;display:flex;justify-content:space-between;gap:16px;align-items:flex-start}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-family:var(--f-mono);color:var(--gold);font-size:18px;line-height:1.4}
+details[open] summary::after{content:"−"}
+details p{margin:0;padding:0 18px 18px;color:var(--sub);max-width:40em}
+
+footer{padding-block:36px 56px;border-top:1px solid var(--line);font-size:13px;color:var(--sub)}
+footer p{margin:4px 0}
+
+@media (prefers-reduced-motion: reduce){
+  .sky .trace,.sky .tw{animation:none}
+  *{transition:none!important}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <svg class="sky" viewBox="0 0 1000 560" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <polyline class="trace" points="610,70 690,46 770,92 850,60 905,128 830,170 760,150"/>
+    <circle class="tw" cx="610" cy="70" r="2.2"/><circle cx="690" cy="46" r="1.6"/><circle class="tw" cx="770" cy="92" r="2.6"/>
+    <circle cx="850" cy="60" r="1.8"/><circle class="tw" cx="905" cy="128" r="2.4"/><circle cx="830" cy="170" r="1.6"/>
+    <circle class="tw" cx="760" cy="150" r="2"/>
+    <circle cx="120" cy="40" r="1" opacity=".5"/><circle cx="420" cy="28" r="1.2" opacity=".5"/>
+    <circle cx="960" cy="300" r="1" opacity=".4"/><circle cx="540" cy="120" r="1" opacity=".4"/>
+    <circle cx="300" cy="90" r="1" opacity=".35"/><circle cx="980" cy="30" r="1.2" opacity=".5"/>
+  </svg>
+  <div class="wrap">
+    <p class="eyebrow">비공식 팬 가이드 · 2026.11</p>
+    <h1>STAR TRACE 이어폰,<br><em>무선</em>으로 쓸까 그대로 쓸까</h1>
+    <p class="intro">굿즈 인이어 이어폰을 블루투스로 바꾸고 싶은 분, 음질을 올리고 싶은 분을 위한 정리입니다. 커넥터 규격부터 확인하세요.</p>
+    <figure class="pin">
+      <div class="scroll">
+      <svg viewBox="0 0 640 170" role="img" aria-label="이어폰 쪽 튀어나온 소켓에 케이블 쪽 덮개형 플러그가 씌워지는 C핀 구조">
+        <defs><marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="var(--night-sub)"/></marker></defs>
+        <rect x="40" y="40" width="180" height="90" rx="44" fill="none" stroke="var(--night-sub)" stroke-width="1.5"/>
+        <circle cx="96" cy="85" r="18" fill="none" stroke="var(--night-sub)" stroke-width="1" stroke-dasharray="3 4"/>
+        <text x="130" y="154" text-anchor="middle" font-size="13" fill="var(--night-sub)">이어폰 헤드</text>
+        <rect x="220" y="62" width="46" height="46" rx="5" fill="var(--night-2)" stroke="var(--night-ink)" stroke-width="1.5"/>
+        <text x="243" y="52" text-anchor="middle" font-size="12" fill="var(--night-ink)">튀어나온 소켓</text>
+        <line x1="266" y1="76" x2="300" y2="76" stroke="var(--star)" stroke-width="4" stroke-linecap="round"/>
+        <line x1="266" y1="94" x2="300" y2="94" stroke="var(--star)" stroke-width="4" stroke-linecap="round"/>
+        <text x="283" y="128" text-anchor="middle" font-size="12" fill="var(--star)">0.78mm 핀</text>
+        <path d="M315 85 h22" stroke="var(--night-sub)" stroke-width="1.5" marker-end="url(#ar)"/>
+        <path d="M350 52 h70 v66 h-70 v-12 h50 v-42 h-50 z" fill="var(--night-2)" stroke="var(--night-ink)" stroke-width="1.5"/>
+        <text x="385" y="42" text-anchor="middle" font-size="12" fill="var(--night-ink)">덮개형 플러그</text>
+        <path d="M420 85 C 480 85, 520 60, 600 70" fill="none" stroke="var(--night-sub)" stroke-width="3" stroke-linecap="round"/>
+        <text x="540" y="104" text-anchor="middle" font-size="13" fill="var(--night-sub)">케이블 / 블루투스 모듈</text>
+      </svg>
+      </div>
+      <figcaption>설명서에는 '0.78mm 2-Pin'이라고 적혀 있지만, 소켓이 튀어나온 C핀(QDC형) 구조입니다. <strong>모듈은 반드시 C핀 버전으로 고르세요.</strong></figcaption>
+    </figure>
+  </div>
+</header>
+
+<main class="wrap">
+
+<section aria-labelledby="pick">
+  <div class="sec-head">
+    <p class="eyebrow">목적별 추천</p>
+    <h2 id="pick">어떤 게 목적인가요?</h2>
+    <p class="lead">고르면 추천과 이유를 보여드려요.</p>
+  </div>
+  <div class="goals" role="tablist">
+    <button role="tab" aria-selected="true" data-goal="sound"><span class="g-name">음질이 최우선</span><span class="g-cost">추가 비용 0원</span></button>
+    <button role="tab" aria-selected="false" data-goal="wireless"><span class="g-name">무선으로 편하게</span><span class="g-cost">약 2만원</span></button>
+    <button role="tab" aria-selected="false" data-goal="premium"><span class="g-name">무선 + 음질 최우선</span><span class="g-cost">$230 이상</span></button>
+  </div>
+  <div class="answer" id="answer" role="tabpanel" aria-live="polite"></div>
+</section>
+
+<section aria-labelledby="spec">
+  <div class="sec-head">
+    <p class="eyebrow">Spec sheet</p>
+    <h2 id="spec">기본 사양</h2>
+    <p class="lead">공식 설명서 기준입니다.</p>
+  </div>
+  <dl class="spec">
+    <div><dt>커넥터</dt><dd class="key">C핀형 2핀 (<span class="num">0.78mm</span>)</dd></div>
+    <div><dt>드라이버</dt><dd><span class="num">10mm</span> 다이내믹, 티타늄 코팅 진동판</dd></div>
+    <div><dt>임피던스 / 감도</dt><dd class="num">20Ω / 108dB</dd></div>
+    <div><dt>기본 케이블</dt><dd>USB-C, DAC 내장 (최대 <span class="num">24bit/96kHz</span>)</dd></div>
+    <div><dt>케이블 길이</dt><dd><span class="num">120cm</span>, 4가닥 은도금</dd></div>
+    <div><dt>마이크</dt><dd>있음 (리모컨 버튼)</dd></div>
+  </dl>
+</section>
+
+<section aria-labelledby="modules">
+  <div class="sec-head">
+    <p class="eyebrow">C핀 블루투스 모듈</p>
+    <h2 id="modules">호환 블루투스 모듈 가격</h2>
+    <p class="lead">모델마다 배터리·터치·연결거리 같은 미묘한 차이는 있지만, 이 가격대에선 음질 차이가 거의 없어요. 그래서 C핀이 확인된 것 중 가장 싼 걸 추천합니다.</p>
+  </div>
+  <div class="refresh">
+    <button type="button" id="refreshBtn">가격 새로고침</button>
+    <span id="priceStatus" aria-live="polite"></span>
+  </div>
+  <div class="tbl">
+    <table>
+      <thead><tr><th>모델</th><th>다른 점</th><th>호환</th><th>알리 가격</th><th></th></tr></thead>
+      <tbody id="mods"></tbody>
+    </table>
+  </div>
+  <p class="note">가격은 알리익스프레스 기준이며, 가격이 낮은 순으로 정렬됩니다. 아이폰은 AAC로만 연결돼서 aptX 지원 여부는 상관없어요.</p>
+</section>
+
+<section aria-labelledby="howto">
+  <div class="sec-head">
+    <p class="eyebrow">장착 순서</p>
+    <h2 id="howto">모듈 끼우는 법</h2>
+  </div>
+  <ol class="steps">
+    <li>기본 케이블을 뺄 때는 비틀지 말고 곧게 당겨 주세요.</li>
+    <li>모듈의 L/R 표시와 이어폰 좌우를 맞춥니다.</li>
+    <li>핀 방향을 확인하고 천천히 곧게 끝까지 밀어 넣으세요. 살짝 빡빡할 수 있어요.</li>
+    <li>케이스에 넣어 한 번 충전한 뒤 페어링합니다.</li>
+  </ol>
+</section>
+
+<section aria-labelledby="faq">
+  <div class="sec-head">
+    <p class="eyebrow">FAQ</p>
+    <h2 id="faq">궁금하실 수 있는 내용</h2>
+  </div>
+  <div class="faq">
+  <details><summary>업그레이드 케이블로 줄갈이하면 음질이 좋아지나요?</summary>
+    <p>거의 차이가 없어요. 음질의 상한선은 이어폰 헤드(드라이버)가 정하고, 케이블은 전달만 합니다. 게다가 기본 케이블에는 DAC가 들어 있어서, 일반 3.5mm 케이블로 바꾸면 별도 동글이 필요해집니다.</p></details>
+  <details><summary>블루투스 모듈마다 음질이 다른가요?</summary>
+    <p>달라요. 모듈 안에 소리를 만드는 칩(DAC)과 앰프가 들어 있기 때문이에요. 다만 2만~5만원대끼리는 차이가 작고, 체감되는 차이는 20만원대 이상 모듈부터입니다. 그래도 헤드 실력 이상으로는 올라가지 않아요.</p></details>
+  <details><summary>일반 0.78mm 2핀 모듈을 사도 되나요?</summary>
+    <p>그냥 꽂으면 고정이 불안정해요. 소켓이 튀어나온 C핀 구조라서, 일반 2핀 모듈을 쓸 땐 C핀 변환 젠더를 끼우세요. 가성비 모듈은 처음부터 C핀 버전을 사는 게 간편합니다.</p></details>
+  <details><summary>유선으로 더 좋게 들을 방법은요?</summary>
+    <p>기본 케이블을 그대로 쓰는 게 가장 좋아요. 외관을 안 바꾸고 소리를 다듬는 가장 쉬운 방법은 이어팁 교체예요. 귀에 맞는 팁으로 바꾸면 차음과 저음이 확실히 달라져요.</p></details>
+  <details><summary>헤드 속 드라이버만 좋은 걸로 바꿀 수 있나요?</summary>
+    <p>기술적으로는 가능하지만 추천하지 않아요. 셸이 본드로 붙어 있어 여는 과정에서 외관이 상할 수 있고, 납때가 필요하며, 셸 구조에 맞춘 튜닝이 틀어져 오히려 소리가 나빠질 수 있어요. 굿즈는 그대로 두고, 음질용 이어폰을 따로 쓰는 게 안전합니다.</p></details>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>비공식 팬 정보 페이지입니다. 제조사·소속사와 관련이 없습니다.</p>
+    <p>가격은 수시로 바뀌니 구매 전 판매 페이지에서 꼭 확인하세요.</p>
+    <p>이 페이지의 일부 링크는 제휴 링크로 바뀔 수 있으며, 링크로 구매 시 수수료를 받을 수 있습니다.</p>
+  </div>
+</footer>
+
+<script>
+const answers = {
+  sound: {
+    title: "기본 줄 이어폰 그대로 쓰세요",
+    sub: "유선 USB-C 케이블이 이 이어폰의 최고 음질입니다.",
+    why: "음질은 이어폰 헤드(드라이버)가 상한선을 정합니다. 헤드를 바꾸지 않는 한 케이블이나 모듈로 그 이상 끌어올릴 수 없어요. 기본 케이블에는 24bit/96kHz DAC가 이미 들어 있어서, 블루투스로 바꾸면 오히려 압축 손실이 생깁니다.",
+    list: ["줄갈이는 체감 차이가 거의 없어요", "별도 동글 DAC도 필요 없어요"]
+  },
+  wireless: {
+    title: "C핀 모듈 중 가장 싼 걸 사세요",
+    sub: "2만원대면 충분합니다.",
+    why: "모델마다 배터리, 터치 조작 같은 미묘한 차이는 있지만 음질엔 거의 영향이 없어요. 그러니 C핀이 확인된 모델 중 가장 싼 걸 사시면 됩니다. 아래 가격표에서 '최저가 추천' 표시를 확인하세요.",
+    list: ["반드시 C핀(QDC형) 버전으로", "비싼 모델을 사도 소리 차이는 작아요", "유선보다는 음질이 살짝 손해예요"]
+  },
+  premium: {
+    title: "고급 블루투스 모듈 + C핀 변환 젠더",
+    sub: "가격은 상관없고 무선 중 가장 좋은 소리를 원할 때의 조합입니다.",
+    why: "고급 모듈은 소리를 만드는 칩(DAC)과 앰프가 좋아서 2만원대 모듈보다 확실히 깨끗합니다. 다만 고급 모듈은 C핀 버전이 거의 없어서, 0.78mm 2핀 버전에 C핀 변환 젠더를 끼워 쓰셔야 해요. 그리고 헤드 실력 이상은 못 올리니, '기본 유선 케이블에 가까운 소리를 무선으로'가 현실적인 기대치입니다.",
+    list: ["0.78mm 2핀 버전 + C핀 변환 젠더(수천 원)", "아이폰은 LDAC가 안 되니 DAC 좋은 모델로", "갤럭시는 LDAC 지원 모델이 유리"],
+    picks: [
+      { name:"FiiO UTWS5 (2025)", desc:"DAC를 양쪽에 하나씩 넣은 모델. 아이폰·갤럭시 모두 무난한 1순위", price:"해외가 약 $230" },
+      { name:"FiiO LINK TWS", desc:"블루투스 6.0, LDAC·aptX Lossless 지원. 갤럭시에서 가장 좋은 코덱을 쓸 수 있어요", price:"가격 확인 필요" },
+      { name:"iFi GO pod Air", desc:"하이엔드 오디오 브랜드, LDAC 지원. 예산이 넉넉할 때", price:"해외가 약 $390" }
+    ]
+  }
+};
+// 알리 API 연동 시 price / asOf 값만 갱신하면 정렬·최저가 표시가 자동으로 바뀝니다
+const modules = [
+  { name:"CCA MX1", diff:"블루투스 6.0, 케이스 800mAh", compat:"ok", compatText:"C핀 장착 확인", price:20000, asOf:"2026.11 구매가", url:"https://www.aliexpress.com/w/wholesale-cca-mx1-c-pin.html" },
+  { name:"KZ AZ15", diff:"aptX 지원(갤럭시 유리), 최대 54시간", compat:"ok", compatText:"C핀 버전 있음", price:null, asOf:"", url:"https://www.aliexpress.com/w/wholesale-kz-az15.html" },
+  { name:"TRN Scallop", diff:"터치 조작, 한쪽 6g, 연결거리 20m", compat:"warn", compatText:"C핀 확인 필요", price:null, asOf:"", url:"https://www.aliexpress.com/w/wholesale-trn-scallop.html" }
+];
+function renderModules(){
+  const sorted = [...modules].sort((a,b)=>(a.price ?? Infinity)-(b.price ?? Infinity));
+  const best = sorted.find(m=>m.price!=null && m.compat==="ok");
+  document.getElementById("mods").innerHTML = sorted.map(m=>{
+    const isBest = m===best;
+    const price = m.price!=null
+      ? `<td class="price">${m.price.toLocaleString("ko-KR")}원<small>${m.asOf} 기준</small></td>`
+      : `<td class="price none">가격 연동 예정<small>자동 갱신 준비 중</small></td>`;
+    return `<tr class="${isBest?"is-best":""}">
+      <td class="m-name"><strong>${m.name}</strong>${isBest?` <span class="tag best">최저가 추천</span>`:""}</td>
+      <td class="m-diff">${m.diff}</td>
+      <td class="m-compat"><span class="tag ${m.compat}">${m.compatText}</span></td>
+      ${price}
+      <td class="m-link"><a href="${m.url}" target="_blank" rel="noopener">알리에서 보기 ↗</a></td>
+    </tr>`;
+  }).join("");
+}
+renderModules();
+
+// 가격 서버 주소 (워커 배포 후 여기에 넣기)
+const PRICE_API_URL = "";
+const statusEl = document.getElementById("priceStatus");
+const refreshBtn = document.getElementById("refreshBtn");
+async function refreshPrices(){
+  if(!PRICE_API_URL){ statusEl.textContent = "가격 서버를 연결하면 자동으로 최신 가격이 표시돼요."; return; }
+  refreshBtn.disabled = true; statusEl.textContent = "가격을 불러오는 중…";
+  try{
+    const res = await fetch(PRICE_API_URL, {cache:"no-store"});
+    if(!res.ok) throw new Error(res.status);
+    const data = await res.json();
+    modules.forEach(m=>{
+      const p = data.items && data.items[m.name];
+      if(p && p.price){ m.price = p.price; m.asOf = "알리 실시간"; if(p.url) m.url = p.url; }
+    });
+    renderModules();
+    const t = data.updatedAt ? new Date(data.updatedAt) : new Date();
+    statusEl.textContent = `${t.toLocaleString("ko-KR",{month:"long",day:"numeric",hour:"2-digit",minute:"2-digit"})} 기준 가격`;
+  }catch(e){
+    statusEl.textContent = "가격을 불러오지 못했어요. 잠시 후 다시 눌러 주세요.";
+  }finally{ refreshBtn.disabled = false; }
+}
+refreshBtn.addEventListener("click", refreshPrices);
+refreshPrices();
+const box = document.getElementById("answer");
+const tabs = document.querySelectorAll(".goals button");
+function show(key){
+  const a = answers[key];
+  box.innerHTML = `<div><h3>${a.title}</h3><p class="sub">${a.sub}</p></div>
+    <div class="why"><strong>WHY</strong>${a.why}</div>
+    <ul>${a.list.map(i=>`<li>${i}</li>`).join("")}</ul>
+    ${a.picks ? `<div class="picks">${a.picks.map((p,i)=>`<div class="pick"><div class="pick-top"><strong>${p.name}</strong>${i===0?`<span class="tag best">추천</span>`:""}</div><p>${p.desc}</p><small>${p.price}</small></div>`).join("")}</div>` : ""}`;
+  tabs.forEach(t=>t.setAttribute("aria-selected", t.dataset.goal===key ? "true":"false"));
+}
+tabs.forEach(t=>t.addEventListener("click",()=>show(t.dataset.goal)));
+show("sound");
+</script>
+</body>
+</html>

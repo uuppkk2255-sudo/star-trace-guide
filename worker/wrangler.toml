@@ -1,0 +1,5 @@
+name = "star-trace-price"
+main = "price-worker.js"
+compatibility_date = "2026-11-01"
+# APP_KEY, APP_SECRET, TRACKING_ID 는 여기 쓰지 말고
+# `npx wrangler secret put APP_KEY` 처럼 비밀값으로 등록하세요.
