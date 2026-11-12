@@ -131,7 +131,10 @@ tr.is-best td{background:var(--gold-soft)}
 tr.is-best td:first-child{box-shadow:inset 3px 0 0 var(--gold)}
 .price{font-family:var(--f-mono);font-weight:500;font-size:17px;font-variant-numeric:tabular-nums;white-space:nowrap}
 .price small{display:block;font-family:var(--f-body);font-weight:400;color:var(--sub);font-size:12px}
-.price.none{font-family:var(--f-body);font-size:14px;color:var(--sub)}
+.price.none{font-family:var(--f-body);font-size:14px}
+.go-search{display:inline-block;font-weight:500;font-size:14px;color:var(--ink);text-decoration:none;
+  padding:6px 12px;border:1.5px solid var(--ink);border-radius:999px;white-space:nowrap}
+.go-search:hover{background:var(--ink);color:var(--bg)}
 td a{font-weight:500;font-size:14px;text-underline-offset:3px;white-space:nowrap}
 .note{font-size:14px;color:var(--sub);margin:12px 0 0}
 @media (max-width:640px){
@@ -345,13 +348,13 @@ function renderModules(){
     const isBest = m===best;
     const price = m.price!=null
       ? `<td class="price">${m.price.toLocaleString("ko-KR")}원<small>${m.asOf} 기준</small></td>`
-      : `<td class="price none">가격 연동 예정<small>자동 갱신 준비 중</small></td>`;
+      : `<td class="price none"><a class="go-search" href="${m.url}" target="_blank" rel="noopener">검색 바로가기 ↗</a><small>가격은 알리에서 확인</small></td>`;
     return `<tr class="${isBest?"is-best":""}">
       <td class="m-name"><strong>${m.name}</strong>${isBest?` <span class="tag best">최저가 추천</span>`:""}</td>
       <td class="m-diff">${m.diff}</td>
       <td class="m-compat"><span class="tag ${m.compat}">${m.compatText}</span></td>
       ${price}
-      <td class="m-link"><a href="${m.url}" target="_blank" rel="noopener">알리에서 보기 ↗</a></td>
+      <td class="m-link">${m.price!=null ? `<a href="${m.url}" target="_blank" rel="noopener">알리에서 보기 ↗</a>` : ""}</td>
     </tr>`;
   }).join("");
 }
@@ -362,7 +365,7 @@ const PRICE_API_URL = "";
 const statusEl = document.getElementById("priceStatus");
 const refreshBtn = document.getElementById("refreshBtn");
 async function refreshPrices(){
-  if(!PRICE_API_URL){ statusEl.textContent = "가격 서버를 연결하면 자동으로 최신 가격이 표시돼요."; return; }
+  if(!PRICE_API_URL){ refreshBtn.hidden = true; statusEl.textContent = "실시간 가격은 준비 중이에요. 가격이 없는 모델은 '검색 바로가기'로 알리에서 확인하세요."; return; }
   refreshBtn.disabled = true; statusEl.textContent = "가격을 불러오는 중…";
   try{
     const res = await fetch(PRICE_API_URL, {cache:"no-store"});
