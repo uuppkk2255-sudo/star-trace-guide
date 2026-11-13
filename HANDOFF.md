@@ -122,3 +122,15 @@ star-trace-guide/
 
 ## 11. 이어서 작업할 때 (Claude Code 등에 줄 첫 지시 예시)
 > HANDOFF.md 읽고 프로젝트 파악해줘. 8번 '남은 할 일'에서 GitHub Pages 배포부터 진행하자.
+
+
+---
+
+## 12. 2026-11-13 리디자인 (site/index.html 교체)
+- 출처: `AX_design studio_html/1.test/실험3_STAR_TRACE/output/pages/B_v4.html` (3회차 8번 「별 궤적」 첫 화면 → 수정 브리프 6항목 반영). 이전 페이지는 `실험3_STAR_TRACE/input/asis/index_repo_20261113.html` 에 백업.
+- 구성: 히어로(별 궤적 · 스크롤 단서) → 목적별 추천 3탭(처음엔 미선택 · 빈 상태 안내) → C핀 경고 + 커넥터 도해(블루 색면) → 모듈 카드 3(**KZ AZ09 · CCA MX1 · KZ AN01** · 장점/단점/가격대/알리 바로가기 · 태그는 셋 다 「C핀 버전 있음」) → 장착 순서(스티키) → 기본 사양 → FAQ → 푸터.
+- 무드: PLAVE 《Star Trace》 앨범(F1) 무드만 — 페리윙클 `#4E51A2` · 입자 · 타이어 자국 별(코드 SVG) · 레이싱 타이포. **공식 로고·커버는 쓰지 않음**(9번 원칙 유지).
+- 이미지: `site/images/` 8장 — 제조사(kz-audio.com) · 취급점(KEEPHIFI) 제품 사진. 배포 전 권리 확인 대상(직접 찍은 사진으로 교체 가능).
+- 폰트: Pretendard(jsDelivr) + Archivo(Google Fonts). 외부 JS 없음. 반응형(375~) · 1600px 이상에서 첫 화면 가운데 정렬.
+- 가격 연동: 새 페이지에는 `PRICE_API_URL` 훅이 **아직 없다**(카드에 「가격 연동 준비중 · 가격대」 고정 문구). 워커를 붙일 때 `.mod .price` 를 7번 응답 형식으로 갱신하는 스크립트를 추가할 것.
+- 모델 변경 이력: KZ AZ15(알리 미판매) → KZ AN01 / KZ AZ09 Pro → KZ AZ09(투명 훅 · 팬 구매 모델) / 호환 태그는 셋 다 「C핀 버전 있음」으로 통일.

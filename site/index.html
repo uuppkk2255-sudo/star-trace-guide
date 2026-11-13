@@ -2,414 +2,907 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>STAR TRACE 이어폰 가이드</title>
+<script>if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('js');</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Orbit&family=IBM+Plex+Sans+KR:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@1,125,700;1,125,800;1,125,900&display=swap" rel="stylesheet">
 <style>
-/* 레이아웃: 밤하늘 히어로(별자리 + 커넥터 도식) → 목적 선택 → 데이터시트형 사양 → 가격 리스트 → 순서 → FAQ */
-:root{
-  --bg:#EEF1F7; --surface:#FFFFFF; --ink:#141A2E; --sub:#5A6380; --line:#D5DAE6;
-  --gold:#A47C10; --gold-soft:#F6EED6; --ok:#23775A; --warn:#A4521A;
-  --night:#0E1428; --night-2:#25305A; --glow:rgba(242,212,124,.18); --night-ink:#EBEEF8; --night-sub:#9CA5C4; --star:#F2D47C;
-  --shadow:rgba(20,26,46,.35);
-  --f-display:"Orbit","IBM Plex Sans KR",sans-serif;
-  --f-body:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
-  --f-mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
-  color-scheme:light;
-  box-sizing:border-box;
-  padding-top:env(safe-area-inset-top,0px);
-  padding-bottom:env(safe-area-inset-bottom,0px);
-}
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){
-    --bg:#0A0F1F; --surface:#131A30; --ink:#E6E9F4; --sub:#98A1BF; --line:#252E4A;
-    --gold:#E4BE55; --gold-soft:#2B2615; --ok:#6FCBA0; --warn:#EAA067;
-    --night:#111933; --night-2:#27325C; color-scheme:dark;
+  :root{
+    --ink:#07070A; --ink2:#0E0E15; --paper:#F3F2EE; --blue:#4E51A2; --blue-hi:#8E92F0; --mute:#8B8B96; --line:rgba(243,242,238,.12);
+    --disp:"Archivo",sans-serif;
   }
-}
-:root[data-theme="dark"]{
-  --bg:#0A0F1F; --surface:#131A30; --ink:#E6E9F4; --sub:#98A1BF; --line:#252E4A;
-  --gold:#E4BE55; --gold-soft:#2B2615; --ok:#6FCBA0; --warn:#EAA067;
-  --night:#111933; --night-2:#27325C; color-scheme:dark;
-}
-*,*::before,*::after{box-sizing:inherit}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);
-  font-size:16px;line-height:1.7;word-break:keep-all;-webkit-font-smoothing:antialiased}
-.wrap{max-width:820px;margin:0 auto;padding-inline:20px}
-a{color:inherit}
-:focus-visible{outline:3px solid var(--gold);outline-offset:3px;border-radius:6px}
-h1,h2,h3{text-wrap:balance}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--ink);color:var(--paper);overflow-x:hidden}
+  html{scroll-behavior:smooth;scroll-padding-top:64px}
+  body{font-family:"Pretendard Variable",Pretendard,system-ui,sans-serif;-webkit-font-smoothing:antialiased;word-break:keep-all}
+  a{color:inherit;text-decoration:none}
+  button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+  img{display:block;max-width:100%}
+  /* page grain */
+  body::after{content:"";position:fixed;inset:0;z-index:90;pointer-events:none;opacity:.07;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1.6 -.3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 
-/* 히어로 */
-.hero{color:var(--night-ink);position:relative;overflow:hidden;
-  background:radial-gradient(60% 80% at 85% 10%,var(--night-2) 0%,transparent 70%),
-             radial-gradient(40% 50% at 10% 100%,var(--glow) 0%,transparent 70%),var(--night)}
-.hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:linear-gradient(90deg,transparent,var(--star),transparent);opacity:.5}
-.hero .wrap{position:relative;padding-block:56px 40px;display:grid;gap:28px}
-.sky{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
-.sky circle{fill:var(--star)}
-.sky .tw{animation:tw 3.6s ease-in-out infinite}
-.sky .tw:nth-of-type(2n){animation-delay:1.2s}.sky .tw:nth-of-type(3n){animation-delay:2.1s}
-@keyframes tw{0%,100%{opacity:1}50%{opacity:.35}}
-.sky .trace{fill:none;stroke:var(--star);stroke-width:1;opacity:.55;stroke-dasharray:900;stroke-dashoffset:0;animation:trace 2.4s ease-out both}
-@keyframes trace{from{stroke-dashoffset:900}to{stroke-dashoffset:0}}
-.eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--star);margin:0}
-.hero h1{font-family:var(--f-display);font-weight:400;font-size:clamp(30px,6.4vw,50px);line-height:1.22;margin:0;letter-spacing:-0.01em}
-.hero h1 em{font-style:normal;color:var(--star)}
-.hero .intro{color:var(--night-sub);margin:0;max-width:32em}
-.pin{margin:0;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:20px;padding:20px 20px 16px;backdrop-filter:blur(6px)}
-.pin svg{display:block;width:100%;height:auto}
-.pin .narrow{display:none}
-@media (max-width:560px){.pin .wide{display:none}.pin .narrow{display:block}.pin{padding:16px 14px 14px}}
-.pin text{font-family:var(--f-body)}
-.pin figcaption{font-size:14px;color:var(--night-sub);margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08)}
-.pin figcaption strong{color:var(--star);font-weight:500}
+  /* ===== GNB (fixed · thin on scroll) ===== */
+  .top{position:fixed;z-index:50;top:0;left:0;right:0;height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 max(56px,calc(50% - 800px + 56px));border-bottom:1px solid rgba(243,242,238,.08);transition:height .35s ease,background .35s ease}
+  .top.thin{height:56px;background:rgba(7,7,10,.78);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+  .brand{display:flex;align-items:baseline;gap:12px}
+  .brand b{font-family:var(--disp);font-style:italic;font-weight:900;font-stretch:125%;font-size:17px;letter-spacing:.02em}
+  .brand span{font-size:13px;color:var(--mute);font-weight:500}
+  .nav{display:flex;gap:32px;font-size:14px;font-weight:500;color:#C9C9D1}
+  .nav a{position:relative;padding:6px 0}
+  .nav a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--blue-hi);transform:scaleX(0);transform-origin:left;transition:transform .3s ease}
+  .nav a:hover{color:#fff}
+  .nav a:hover::after{transform:scaleX(1)}
+  .menu{display:none;width:44px;height:44px;margin-right:-11px;position:relative}
+  .menu i{position:absolute;left:11px;right:11px;height:2px;background:#fff;transition:transform .3s}
+  .menu i:first-child{top:16px}.menu i:last-child{top:26px}
+  .nav-open .menu i:first-child{transform:translateY(5px) rotate(45deg)}
+  .nav-open .menu i:last-child{transform:translateY(-5px) rotate(-45deg)}
 
-/* 섹션 공통 */
-section{padding-block:52px}
-section + section{border-top:1px solid var(--line)}
-.sec-head{display:grid;gap:6px;margin-bottom:24px}
-.sec-head .eyebrow{color:var(--gold)}
-.sec-head .eyebrow::before{content:"\2726";margin-right:8px}
-h2{font-family:var(--f-display);font-weight:400;font-size:clamp(22px,4vw,28px);line-height:1.3;margin:0}
-.lead{color:var(--sub);margin:0;max-width:38em}
+  /* ===== HERO (fs_08 고정) ===== */
+  .hero{position:relative;height:100vh;min-height:640px;max-height:900px;overflow:hidden;isolation:isolate;
+    background:radial-gradient(120% 90% at 78% 30%, #14152A 0%, #08080C 55%, #050507 100%)}
+  .grain{position:absolute;inset:0;z-index:5;pointer-events:none;opacity:.22;mix-blend-mode:overlay;width:100%;height:100%}
+  .grain2{position:absolute;inset:0;z-index:5;pointer-events:none;opacity:.08;width:100%;height:100%}
+  .layer{position:absolute;inset:0;will-change:transform}
+  .wm{position:absolute;z-index:1;left:max(-40px,calc(50% - 800px - 40px));top:96px;transform:skewX(-10deg) rotate(-6deg);transform-origin:left top;
+    font-family:var(--disp);font-style:italic;font-weight:900;font-stretch:125%;
+    font-size:300px;line-height:.84;letter-spacing:-.02em;white-space:nowrap;color:#1C1C26;user-select:none}
+  .wm span{display:block}
+  .wm .l2{margin-left:280px}
+  .wm .out{color:transparent;-webkit-text-stroke:1.5px rgba(142,146,240,.28)}
+  .trail{position:absolute;inset:0;z-index:3;width:100%;height:100%}
+  .trail-mo{display:none}
+  .trail-pc{left:max(0px,calc(50% - 800px));right:auto;width:min(100%,1600px);overflow:visible}
+  .copy{position:absolute;z-index:8;left:max(56px,calc(50% - 800px + 56px));bottom:72px;max-width:760px}
+  .eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:13px;font-weight:600;letter-spacing:.04em;color:#B9BAE8;margin-bottom:22px}
+  .eyebrow i{width:28px;height:1px;background:var(--blue-hi)}
+  .pre{font-size:22px;font-weight:600;color:#C9C9D1;margin-bottom:10px;letter-spacing:-.01em}
+  h1{font-size:76px;line-height:1.08;font-weight:800;letter-spacing:-.035em;color:#fff}
+  h1 em{font-style:normal;position:relative;display:inline-block;padding:0 .08em;margin:0 -.04em}
+  h1 em::before{content:"";position:absolute;left:0;right:0;bottom:.06em;height:.42em;background:var(--blue);z-index:-1;transform:skewX(-12deg)}
+  h1 .soft{color:#D5D5DC}
+  .intro{margin-top:24px;font-size:16px;line-height:1.7;color:#A9A9B4;max-width:520px}
+  .intro strong{color:#fff;font-weight:600}
+  /* scroll cue (v4 · 버튼 2개 대신) */
+  .cue{display:inline-flex;align-items:center;gap:12px;margin-top:34px;min-height:44px;padding-right:8px;font-size:13px;font-weight:600;letter-spacing:.08em;color:#C9C9D1;transition:color .25s}
+  .cue svg{width:14px;height:40px;overflow:visible}
+  .cue:hover{color:#fff}
+  .pin{position:absolute;z-index:8;right:max(56px,calc(50% - 800px + 56px));bottom:72px;width:300px;font-size:13px;line-height:1.65;color:#9C9CA8;border-top:1px solid rgba(243,242,238,.18);padding-top:14px}
+  .pin b{display:block;color:#fff;font-size:15px;font-weight:700;margin-bottom:4px}
+  .pin b span{color:var(--blue-hi)}
 
-/* 목적 선택 */
-.goals{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-bottom:14px}
-.goals button{font:inherit;text-align:left;cursor:pointer;display:grid;gap:4px;
-  padding:16px;border-radius:14px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);
-  transition:border-color .15s,background-color .15s}
-.goals button:hover{border-color:var(--sub)}
-.goals .g-name{font-weight:700;font-size:16px}
-.goals .g-cost{font-family:var(--f-mono);font-size:12px;color:var(--sub);font-variant-numeric:tabular-nums}
-.goals button[aria-selected="true"]{background:radial-gradient(120% 140% at 100% 0%,var(--night-2),var(--night));border-color:var(--star);color:var(--night-ink);box-shadow:0 8px 24px -10px var(--glow)}
-.goals button[aria-selected="true"] .g-cost{color:var(--star)}
-@media (max-width:560px){.goals{grid-template-columns:1fr}}
+  /* ===== common ===== */
+  .sec{position:relative;padding:160px 0}
+  .wrap{width:min(1240px,100% - 112px);margin:0 auto}
+  .sh{display:grid;grid-template-columns:1fr auto;align-items:end;gap:24px 48px;margin-bottom:64px}
+  .eb{display:inline-flex;align-items:center;gap:10px;font-size:13px;font-weight:600;letter-spacing:.06em;color:#B9BAE8;margin-bottom:18px;text-transform:none}
+  .eb i{width:28px;height:1px;background:var(--blue-hi)}
+  .eb .no{font-family:var(--disp);font-style:italic;font-weight:800;font-stretch:125%;color:var(--blue-hi);letter-spacing:.02em}
+  h2{font-size:52px;line-height:1.15;font-weight:800;letter-spacing:-.035em;color:#fff}
+  .lead{font-size:17px;line-height:1.7;color:#A9A9B4;max-width:440px}
+  .ghost{font-family:var(--disp);font-style:italic;font-weight:900;font-stretch:125%;color:transparent;-webkit-text-stroke:1px rgba(142,146,240,.22);white-space:nowrap;user-select:none;pointer-events:none;line-height:.85}
 
-.answer{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:30px;display:grid;gap:18px;box-shadow:0 1px 0 var(--line),0 20px 40px -28px var(--shadow)}
-.answer h3{font-family:var(--f-display);font-weight:400;font-size:clamp(22px,4.4vw,30px);line-height:1.3;margin:0}
-.answer .sub{margin:4px 0 0;color:var(--sub)}
-.answer .why{padding:16px 18px;background:var(--gold-soft);border-radius:12px}
-.answer .why strong{display:block;font-family:var(--f-mono);font-size:12px;letter-spacing:.12em;color:var(--gold);font-weight:500;margin-bottom:4px}
-.answer ul{margin:0;padding:0;list-style:none;display:grid;gap:8px}
-.answer li{position:relative;padding-left:22px}
-.answer li::before{content:"";position:absolute;left:4px;top:.72em;width:7px;height:7px;background:var(--gold);transform:rotate(45deg)}
-.picks{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
-.pick{border:1px solid var(--line);border-radius:12px;padding:16px;display:grid;gap:6px;align-content:start;min-width:0}
-.pick-top{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
-.pick p{margin:0;font-size:14px;color:var(--sub)}
-.pick small{font-family:var(--f-mono);font-size:12px;color:var(--ink)}
+  /* ===== 01 PURPOSE (tabs) ===== */
+  .purpose{padding-top:180px}
+  .purpose .ghost{position:absolute;right:-30px;top:60px;font-size:180px;transform:skewX(-10deg)}
+  .tabs{position:relative;display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .tab{position:relative;z-index:1;display:flex;flex-direction:column;align-items:flex-start;gap:14px;padding:30px 32px 32px;text-align:left;border-left:1px solid var(--line);transition:color .3s}
+  .tab:first-of-type{border-left:0}
+  .tab .tn{font-family:var(--disp);font-style:italic;font-weight:800;font-stretch:125%;font-size:13px;color:var(--mute);letter-spacing:.04em;transition:color .3s}
+  .tab .tl{font-size:22px;font-weight:700;letter-spacing:-.02em;color:#C9C9D1;transition:color .3s}
+  .tab .tc{display:flex;align-items:baseline;gap:6px;font-size:15px;font-weight:600;color:var(--mute);white-space:nowrap;transition:color .3s}
+  .tab .tc b{font-family:var(--disp);font-style:italic;font-weight:900;font-stretch:125%;font-size:44px;line-height:1;letter-spacing:-.01em;color:#5E5E6A;transition:color .3s}
+  .tab:hover .tl{color:#fff}
+  .tab:hover .tc b{color:#8A8A98}
+  .tab[aria-selected="true"] .tl,.tab[aria-selected="true"] .tc{color:#fff}
+  .tab[aria-selected="true"] .tc b,.tab[aria-selected="true"] .tn{color:var(--blue-hi)}
+  .ind{position:absolute;z-index:0;top:0;left:0;height:100%;width:33.333%;background:linear-gradient(180deg,rgba(78,81,162,.28),rgba(78,81,162,.08));transition:transform .5s cubic-bezier(.2,.8,.2,1),width .5s,height .5s}
+  .ind::before{content:"";position:absolute;left:0;right:0;top:-1px;height:3px;background:var(--blue-hi);box-shadow:0 0 18px rgba(142,146,240,.8)}
+  .panels{position:relative;display:grid;margin-top:56px;transition:height .5s cubic-bezier(.2,.8,.2,1);overflow:hidden}
+  .panel{grid-area:1/1;align-self:start;display:grid;grid-template-columns:5fr 7fr;gap:40px 80px;opacity:0;visibility:hidden;transform:translateY(14px);transition:opacity .45s ease,transform .45s ease,visibility 0s .45s}
+  .panel.on{opacity:1;visibility:visible;transform:none;transition:opacity .5s ease .12s,transform .5s ease .12s,visibility 0s}
+  .panel h3{font-size:38px;line-height:1.25;font-weight:800;letter-spacing:-.03em;color:#fff}
+  .panel h3::after{content:"";display:block;width:72px;height:3px;margin-top:18px;background:var(--blue-hi);opacity:.45;transform-origin:left}
+  .panels{scroll-margin-top:16px}
+  .pk{display:none}
+  .sp dt small{display:block;font-size:12px;font-weight:400;color:#8E8E9A;margin-top:4px;letter-spacing:0}
+  .panel.empty{display:flex;flex-direction:column;align-items:flex-start;gap:14px;padding:36px 0 8px;color:#B9BAE8}
+  .panel.empty svg{width:16px;height:30px;color:var(--blue-hi);animation:cueUp 1.6s ease-in-out infinite}
+  .panel.empty .e1{font-size:22px;line-height:1.4;font-weight:600;color:#fff;letter-spacing:-.02em}
+  .panel.empty .e2{font-size:14px;color:#9C9CA8}
+  @keyframes cueUp{0%,100%{transform:translateY(0);opacity:1}50%{transform:translateY(-6px);opacity:.55}}
+  @media (prefers-reduced-motion:reduce){.panel.empty svg{animation:none}}
+  .tabs .ind{opacity:0;transition:opacity .3s,transform .5s cubic-bezier(.2,.8,.2,1),width .5s,height .5s}
+  .tabs.has .ind{opacity:1}
+  .panel .sub{margin-top:16px;font-size:18px;line-height:1.6;color:#B9BAE8;font-weight:500}
+  .why{border-left:1px solid var(--line);padding-left:40px}
+  .why .k{font-family:var(--disp);font-style:italic;font-weight:800;font-stretch:125%;font-size:13px;letter-spacing:.08em;color:var(--blue-hi);margin-bottom:14px}
+  .why p{font-size:17px;line-height:1.8;color:#C9C9D1}
+  .chk{list-style:none;margin-top:28px;display:grid;gap:12px}
+  .chk li{position:relative;padding-left:30px;font-size:16px;line-height:1.5;color:#fff;font-weight:600}
+  .chk li::before{content:"";position:absolute;left:0;top:.25em;width:16px;height:16px;background:var(--blue);clip-path:polygon(50% 0,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%)}
+  .prem{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:12px}
+  .pcard{display:flex;flex-direction:column;padding:28px;border:1px solid var(--line);border-radius:18px;background:linear-gradient(160deg,rgba(255,255,255,.05),rgba(255,255,255,.01));transition:transform .35s ease,border-color .35s,box-shadow .35s}
+  .pcard:hover{transform:translateY(-6px);border-color:rgba(142,146,240,.5);box-shadow:0 20px 50px rgba(0,0,0,.5)}
+  .pcard b{font-family:var(--disp);font-style:italic;font-weight:800;font-stretch:125%;font-size:19px;color:#fff;letter-spacing:.01em}
+  .pcard p{margin-top:12px;font-size:15px;line-height:1.65;color:#A9A9B4;flex:1}
+  .pcard span{margin-top:20px;padding-top:16px;border-top:1px solid var(--line);font-size:15px;font-weight:700;color:var(--blue-hi);white-space:nowrap}
 
-/* 사양: 데이터시트 */
-.spec{margin:0;border-top:2px solid var(--ink)}
-.spec div{display:grid;grid-template-columns:150px minmax(0,1fr);gap:16px;padding:13px 0;border-bottom:1px solid var(--line)}
-.spec dt{font-size:14px;color:var(--sub)}
-.spec dd{margin:0;font-weight:500}
-.spec .num{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
-.spec dd.key{color:var(--gold);font-weight:700}
-@media (max-width:480px){.spec div{grid-template-columns:1fr;gap:2px}}
+  /* ===== 02 C-PIN (blue field) ===== */
+  .cpin{background:var(--blue);color:#fff;padding:200px 0 190px;clip-path:polygon(0 80px,100% 0,100% calc(100% - 80px),0 100%);margin:40px 0;overflow:hidden;isolation:isolate}
+  .cpin .tread{position:absolute;inset:0;width:100%;height:100%;z-index:-1;opacity:.9}
+  .cpin .g{position:absolute;inset:0;z-index:-1;opacity:.35;mix-blend-mode:overlay;width:100%;height:100%}
+  .cpin .eb{color:#fff}.cpin .eb i{background:#fff}.cpin .eb .no{color:#fff}
+  .cpin h2{font-size:64px;line-height:1.1;max-width:900px}
+  .cpin h2 .c{display:inline-block;padding:0 .14em;background:var(--ink);transform:skewX(-10deg);margin:0 .04em}
+  .cpin h2 .c span{display:inline-block;transform:skewX(10deg)}
+  .cpin .cap{margin-top:28px;font-size:19px;line-height:1.7;color:rgba(255,255,255,.86);max-width:620px}
+  .diagram{margin-top:72px;border-top:1px solid rgba(255,255,255,.3);border-bottom:1px solid rgba(255,255,255,.3);padding:40px 0}
+  .diagram svg{width:100%;height:auto;display:block;overflow:visible}
+  .dg-mo{display:none!important}
+  .dg text{font-family:"Pretendard Variable",Pretendard,sans-serif;fill:#fff;font-size:17px;font-weight:600}
+  .dg text.s{font-size:13px;font-weight:500;fill:rgba(255,255,255,.7)}
+  .dg text.n{font-family:var(--disp);font-style:italic;font-weight:800;font-stretch:125%;font-size:13px;fill:var(--ink)}
+  .cmp{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:40px}
+  .cmp figure{display:grid;grid-template-columns:200px 1fr;align-items:center;gap:28px;background:rgba(7,7,10,.22);border:1px solid rgba(255,255,255,.22);border-radius:18px;padding:16px 28px 16px 16px}
+  .cmp img{width:200px;height:200px;object-fit:cover;border-radius:10px;background:#fff}
+  .cmp figcaption b{display:block;font-size:20px;font-weight:800;letter-spacing:-.02em}
+  .cmp figcaption span{display:block;margin-top:8px;font-size:15px;line-height:1.6;color:rgba(255,255,255,.78)}
+  .cmp .ok b::before{content:"";display:inline-block;width:12px;height:12px;margin-right:10px;background:#fff;border-radius:50%;box-shadow:0 0 0 4px rgba(255,255,255,.25)}
+  .cmp .no b::before{content:"";display:inline-block;width:12px;height:12px;margin-right:10px;border:1.5px dashed #fff;border-radius:50%}
 
-/* 가격 */
-.refresh{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px}
-.refresh button{font:inherit;font-weight:500;font-size:14px;padding:8px 14px;border-radius:999px;border:1.5px solid var(--ink);background:transparent;color:var(--ink);cursor:pointer}
-.refresh button:hover{background:var(--ink);color:var(--bg)}
-.refresh button:disabled{opacity:.5;cursor:wait}
-#priceStatus{font-size:13px;color:var(--sub)}
-.tbl{border:1px solid var(--line);border-radius:20px;background:var(--surface);overflow:hidden;box-shadow:0 20px 40px -30px var(--shadow)}
-table{border-collapse:collapse;width:100%;font-size:15px}
-th,td{padding:14px 16px;text-align:left;border-bottom:1px solid var(--line);vertical-align:middle}
-th{font-family:var(--f-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--sub);font-weight:500}
-tr:last-child td{border-bottom:0}
-td.m-name strong{font-size:16px}
-td.m-diff{color:var(--sub);font-size:14px}
-.tag{display:inline-block;font-size:12px;line-height:1.5;padding:2px 9px;border-radius:999px;font-weight:500;white-space:nowrap}
-.tag.ok{color:var(--ok);border:1px solid currentColor}
-.tag.warn{color:var(--warn);border:1px dashed currentColor}
-.tag.likely{color:var(--sub);border:1px dashed currentColor}
-.tag.best{background:linear-gradient(135deg,var(--star),var(--gold));color:var(--night)}
-tr.is-best td{background:var(--gold-soft)}
-tr.is-best td:first-child{box-shadow:inset 3px 0 0 var(--gold)}
-.price{font-family:var(--f-mono);font-weight:500;font-size:17px;font-variant-numeric:tabular-nums;white-space:nowrap}
-.price small{display:block;font-family:var(--f-body);font-weight:400;color:var(--sub);font-size:12px}
-.price.none{font-family:var(--f-body);font-size:14px}
-.go-search{display:inline-block;font-weight:500;font-size:14px;color:var(--ink);text-decoration:none;
-  padding:6px 12px;border:1.5px solid var(--ink);border-radius:999px;white-space:nowrap}
-.go-search:hover{background:var(--ink);color:var(--bg)}
-td a{font-weight:500;font-size:14px;text-underline-offset:3px;white-space:nowrap}
-.note{font-size:14px;color:var(--sub);margin:12px 0 0}
-@media (max-width:640px){
-  thead{display:none}
-  table,tbody,tr,td{display:block}
-  tr{padding:16px;border-bottom:1px solid var(--line);display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 12px}
-  tr:last-child{border-bottom:0}
-  td{padding:0;border:0}
-  tr.is-best{background:var(--gold-soft)}
-  tr.is-best td{background:transparent}
-  td.m-name{grid-column:1}
-  td.price{grid-column:2;grid-row:1 / span 2;text-align:right}
-  td.m-diff,td.m-compat{grid-column:1}
-  td.m-link{grid-column:1 / -1;margin-top:4px}
-}
+  /* ===== 03 MODULES ===== */
+  .mods{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .mod{display:flex;flex-direction:column;border-radius:22px;overflow:hidden;background:var(--ink2);border:1px solid var(--line);transition:transform .45s cubic-bezier(.2,.8,.2,1),box-shadow .45s,border-color .45s}
+  .mod:hover{transform:translateY(-10px);box-shadow:0 30px 70px rgba(0,0,0,.6),0 0 0 1px rgba(142,146,240,.35);border-color:transparent}
+  .ph{position:relative;aspect-ratio:1/1;overflow:hidden;background:#000}
+  .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.2,.8,.2,1),opacity .6s ease}
+  .ph .alt{opacity:0}
+  .mod:hover .ph img{transform:scale(1.06)}
+  .mod:hover .ph .alt{opacity:1}
+  .ph::after{content:"";position:absolute;inset:auto 0 0 0;height:45%;background:linear-gradient(0deg,var(--ink2),transparent)}
+  .ph .idx{position:absolute;z-index:2;left:24px;top:20px;font-family:var(--disp);font-style:italic;font-weight:800;font-stretch:125%;font-size:13px;color:#fff;letter-spacing:.06em}
+  .mb{position:relative;z-index:2;display:flex;flex-direction:column;flex:1;padding:0 28px 28px;margin-top:-56px}
+  .mb h3{font-family:var(--disp);font-style:italic;font-weight:900;font-stretch:125%;font-size:30px;line-height:1.05;letter-spacing:-.01em;color:#fff;white-space:nowrap}
+  .fig{display:flex;align-items:baseline;gap:8px;margin-top:22px;white-space:nowrap}
+  .fig small{font-size:14px;font-weight:600;color:var(--mute)}
+  .fig b{font-family:var(--disp);font-style:italic;font-weight:900;font-stretch:125%;font-size:56px;line-height:1;color:var(--blue-hi)}
+  .fig em{font-style:normal;font-size:18px;font-weight:700;color:var(--blue-hi)}
+  .mh{display:flex;flex-direction:column;align-items:flex-start;gap:12px}
+  .pc{margin-top:24px;padding-top:20px;border-top:1px solid var(--line)}
+  .pc + .pc{margin-top:0;padding-top:18px;border-top:1px dashed rgba(243,242,238,.1)}
+  .pc .k{font-size:13px;font-weight:700;letter-spacing:.04em;margin-bottom:10px}
+  .pro .k{color:var(--blue-hi)}
+  .con .k{color:var(--mute)}
+  .pc ul{list-style:none;display:grid;gap:8px;padding-bottom:18px}
+  .pc li{position:relative;padding-left:18px;font-size:15px;line-height:1.5;color:#E4E4EA}
+  .pro li::before{content:"+";position:absolute;left:0;top:0;font-weight:700;color:var(--blue-hi)}
+  .con li{color:#B4B4BE}
+  .con li::before{content:"–";position:absolute;left:0;top:0;font-weight:700;color:var(--mute)}
+  .price{display:flex;flex-direction:column;gap:4px;margin-top:4px;padding:14px 18px;border-radius:14px;background:rgba(78,81,162,.16);border:1px solid rgba(142,146,240,.22);align-self:stretch}
+  .price span{font-size:12px;font-weight:600;letter-spacing:.04em;color:var(--mute)}
+  .price b{font-size:17px;font-weight:800;letter-spacing:-.02em;color:#fff;white-space:nowrap}
+  .tag{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:#C9C9D1}
+  .tag::before{content:"";width:22px;height:0;border-top:2px solid var(--blue-hi)}
+  .tag.likely::before{border-top-style:dashed}
+  .go{display:flex;align-items:center;justify-content:space-between;margin-top:16px;height:54px;padding:0 22px;border-radius:999px;border:1px solid rgba(243,242,238,.3);font-size:15px;font-weight:700;transition:background .3s,border-color .3s,color .3s,transform .15s}
+  .go i{font-style:normal;transition:transform .3s}
+  .go:hover{background:var(--blue);border-color:var(--blue)}
+  .go:hover i{transform:translate(3px,-3px)}
+  .go:active{transform:scale(.97)}
+  @media (min-width:761px){
+    .mods{grid-auto-rows:auto;row-gap:0}
+    .mod{display:grid;grid-row:span 7;grid-template-rows:subgrid;row-gap:0}
+    .mb{display:grid;grid-row:2/span 6;grid-template-rows:subgrid;row-gap:0;margin-top:0}
+    .mb .mh{margin-top:-56px}
+    .price{align-self:end}
+  }
+  .mnote{display:grid;grid-template-columns:1fr 1fr;gap:24px 48px;margin-top:40px;padding-top:28px;border-top:1px solid var(--line);font-size:14px;line-height:1.7;color:var(--mute)}
+  .mnote p:first-child{color:#C9C9D1}
 
-/* 장착 순서 */
-ol.steps{list-style:none;margin:0;padding:0;display:grid;gap:0;counter-reset:s}
-ol.steps li{counter-increment:s;display:grid;grid-template-columns:40px minmax(0,1fr);gap:14px;padding:14px 0;border-bottom:1px solid var(--line)}
-ol.steps li:first-child{border-top:1px solid var(--line)}
-ol.steps li::before{content:counter(s,decimal-leading-zero);font-family:var(--f-mono);font-size:14px;color:var(--gold);padding-top:2px}
+  /* ===== 04 INSTALL (sticky) ===== */
+  .install{padding-bottom:60px}
+  .spec{background:radial-gradient(45% 38% at 82% 45%,rgba(78,81,162,.24),transparent 75%)}
+  .purpose,.foot,.modules,.faq{overflow:hidden}
+  .purpose{background:radial-gradient(55% 45% at 100% 70%,rgba(78,81,162,.14),transparent 70%)}
+  .install .grid{display:grid;grid-template-columns:5fr 7fr;gap:80px}
+  .install .stick{position:sticky;top:120px;align-self:start}
+  .bignum{display:flex;align-items:flex-end;gap:16px;margin-top:56px}
+  .bignum b{font-family:var(--disp);font-style:italic;font-weight:900;font-stretch:125%;font-size:200px;line-height:.8;color:#fff;letter-spacing:-.03em;display:inline-block;min-width:2.1ch}
+  .bignum span{font-family:var(--disp);font-style:italic;font-weight:800;font-stretch:125%;font-size:28px;color:var(--mute);padding-bottom:6px}
+  .prog{margin-top:40px;height:10px;width:100%;max-width:360px;position:relative;background:repeating-linear-gradient(90deg,rgba(243,242,238,.14) 0 4px,transparent 4px 9px)}
+  .prog i{position:absolute;inset:0;background:repeating-linear-gradient(90deg,var(--blue-hi) 0 4px,transparent 4px 9px);transform-origin:left;transform:scaleX(.25);transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+  .steps{list-style:none;display:grid;gap:0}
+  .step{display:grid;grid-template-columns:72px 1fr;gap:24px;align-items:start;padding:56px 0;border-top:1px solid var(--line);transition:opacity .5s ease}
+  .step:last-child{border-bottom:1px solid var(--line)}
+  .step .sn{font-family:var(--disp);font-style:italic;font-weight:900;font-stretch:125%;font-size:28px;color:var(--mute);transition:color .5s}
+  .step p{font-size:26px;line-height:1.5;font-weight:700;letter-spacing:-.02em;color:#fff}
+  html.js .step{opacity:.28}
+  html.js .step.on{opacity:1}
+  .step.on .sn{color:var(--blue-hi)}
 
-/* FAQ */
-.faq{display:grid;gap:8px}
-details{background:var(--surface);border:1px solid var(--line);border-radius:16px;transition:border-color .15s}
-details[open]{border-color:var(--gold)}
-summary{cursor:pointer;padding:16px 18px;font-weight:500;list-style:none;display:flex;justify-content:space-between;gap:16px;align-items:flex-start}
-summary::-webkit-details-marker{display:none}
-summary::after{content:"+";font-family:var(--f-mono);color:var(--gold);font-size:18px;line-height:1.4}
-details[open] summary::after{content:"−"}
-details p{margin:0;padding:0 18px 18px;color:var(--sub);max-width:40em}
+  /* ===== 05 SPEC ===== */
+  .specs{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .sp{display:flex;flex-direction:column;justify-content:space-between;gap:36px;min-height:200px;padding:28px 30px;border:1px solid var(--line);border-radius:18px;background:linear-gradient(160deg,rgba(78,81,162,.16),rgba(255,255,255,.015) 60%);transition:border-color .35s,transform .35s}
+  .sp:hover{border-color:rgba(142,146,240,.45);transform:translateY(-4px)}
+  .sp dt{font-size:14px;font-weight:600;color:var(--mute)}
+  .sp dd{font-size:22px;line-height:1.45;font-weight:700;letter-spacing:-.02em;color:#fff}
+  .sp.key{grid-row:span 2;background:var(--blue);border-color:var(--blue);position:relative;overflow:hidden}
+  .sp.key dt{color:rgba(255,255,255,.8)}
+  .sp.key dd{font-size:34px;line-height:1.3}
+  .sp.key dd b{display:block;font-family:var(--disp);font-style:italic;font-weight:900;font-stretch:125%;font-size:68px;line-height:1;letter-spacing:-.02em;margin-top:12px;white-space:nowrap}
+  .sp.key dd b i{font-style:normal;font-weight:400;opacity:.55;font-size:.6em;vertical-align:.18em}
+  .sp.key svg{position:absolute;right:-40px;top:-30px;width:280px;opacity:.35}
 
-footer{padding-block:36px 56px;border-top:1px solid var(--line);font-size:13px;color:var(--sub)}
-footer p{margin:4px 0}
+  /* ===== 06 FAQ ===== */
+  .faq .grid{display:grid;grid-template-columns:4fr 8fr;gap:80px}
+  .qa{border-top:1px solid var(--line)}
+  .qa:last-child{border-bottom:1px solid var(--line)}
+  .qa button{width:100%;display:grid;grid-template-columns:52px 1fr 28px;align-items:center;gap:12px;padding:28px 0;text-align:left;min-height:64px}
+  .qa .qn{font-family:var(--disp);font-style:italic;font-weight:800;font-stretch:125%;font-size:15px;color:var(--mute);transition:color .3s}
+  .qa .qt{font-size:20px;line-height:1.45;font-weight:700;letter-spacing:-.02em;color:#E4E4EA;transition:color .3s}
+  .qa .pm{position:relative;width:20px;height:20px;justify-self:end}
+  .qa .pm::before,.qa .pm::after{content:"";position:absolute;left:0;right:0;top:9px;height:2px;background:currentColor;transition:transform .35s}
+  .qa .pm::after{transform:rotate(90deg)}
+  .qa button:hover .qt{color:#fff}
+  .qa.open .qn{color:var(--blue-hi)}.qa.open .qt{color:#fff}
+  .qa.open .pm::after{transform:rotate(0)}
+  .qa .ans{overflow:hidden;height:0;transition:height .45s cubic-bezier(.2,.8,.2,1)}
+  html:not(.js) .qa.open .ans{height:auto}
+  .qa .ans p{padding:0 40px 32px 64px;font-size:16px;line-height:1.85;color:#A9A9B4}
 
-@media (prefers-reduced-motion: reduce){
-  .sky .trace,.sky .tw{animation:none}
-  *{transition:none!important}
-}
+  /* ===== footer ===== */
+  .foot{position:relative;padding:120px 0 56px;border-top:1px solid var(--line);overflow:hidden}
+  .foot .ghost{font-size:210px;transform:skewX(-10deg);margin-left:-20px;-webkit-text-stroke:1px rgba(142,146,240,.3)}
+  .foot .row{display:flex;justify-content:space-between;align-items:flex-end;gap:32px;margin-top:56px;font-size:14px;line-height:1.8;color:var(--mute)}
+  .foot .row a{font-family:var(--disp);font-style:italic;font-weight:800;font-stretch:125%;font-size:13px;color:#C9C9D1;padding:12px 0}
+  .foot .row a:hover{color:#fff}
+
+  @media (max-width:760px){
+    html{scroll-padding-top:56px}
+    .hero{height:100svh;min-height:700px;max-height:812px}
+    .top{height:56px;padding:0 20px}
+    .top.thin{height:52px}
+    .brand b{font-size:14px}
+    .brand span{font-size:12px}
+    .nav{position:fixed;top:56px;left:0;right:0;flex-direction:column;gap:0;padding:8px 20px 20px;background:rgba(7,7,10,.96);border-bottom:1px solid var(--line);transform:translateY(-8px);opacity:0;visibility:hidden;transition:opacity .3s,transform .3s,visibility 0s .3s}
+    .nav a{padding:16px 0;font-size:16px;border-bottom:1px solid var(--line)}
+    .nav-open .nav{opacity:1;visibility:visible;transform:none;transition:opacity .3s,transform .3s}
+    .menu{display:block}
+    .wm{font-size:128px;left:-18px;top:78px;transform:skewX(-10deg) rotate(-8deg)}
+    .wm .l2{margin-left:70px}
+    .trail-pc{display:none}
+    .trail-mo{display:block}
+    .copy{left:20px;right:20px;bottom:calc(72px + env(safe-area-inset-bottom,0px));max-width:none}
+    .eyebrow{font-size:12px;margin-bottom:14px}
+    .pre{font-size:17px;margin-bottom:6px}
+    h1{font-size:42px;line-height:1.14}
+    .intro{font-size:14.5px;margin-top:16px;line-height:1.65}
+    .cue{margin-top:20px}
+    .pin{display:none}
+    .intro .w{display:block;margin-top:6px}
+
+    .sec{padding:96px 0}
+    .wrap{width:calc(100% - 40px)}
+    .sh{grid-template-columns:1fr;margin-bottom:40px;gap:16px}
+    h2{font-size:32px}
+    .lead{font-size:15px}
+    .purpose{padding-top:110px}
+    .purpose .ghost{font-size:84px;top:40px;right:-10px}
+    .tabs{grid-template-columns:1fr}
+    .tab{flex-direction:row;align-items:center;justify-content:space-between;gap:12px;padding:20px 18px;border-left:0;border-top:1px solid var(--line);min-height:76px}
+    .tab:first-of-type{border-top:0}
+    .tab .tn{display:none}
+    .tab .tl{font-size:17px}
+    .tab .tc{flex-direction:column;align-items:flex-end;gap:2px;font-size:12px}
+    .tab .tc b{font-size:28px}
+    .ind{width:100%}
+    .ind::before{top:0;bottom:0;right:auto;width:3px;height:auto}
+    .panels{margin-top:36px}
+    .tab[aria-selected="true"]{box-shadow:inset 0 0 0 1px rgba(142,146,240,.55)}
+    .pk{display:inline-flex;align-items:center;gap:8px;margin-bottom:12px;padding:6px 12px;border:1px solid rgba(142,146,240,.55);border-radius:999px;background:rgba(78,81,162,.22);font-size:13px;font-weight:700;color:#fff}
+    .pk b{font-family:var(--disp);font-style:italic;font-weight:800;font-stretch:125%;color:var(--blue-hi)}
+    .panel h3::after{margin-top:14px;width:56px}
+    .panel{grid-template-columns:1fr;gap:28px}
+    .panel h3{font-size:27px}
+    .panel .sub{font-size:16px;margin-top:10px}
+    .why{border-left:0;padding-left:0;border-top:1px solid var(--line);padding-top:24px}
+    .why p{font-size:15.5px;line-height:1.75}
+    .chk li{font-size:15px}
+    .prem{grid-template-columns:1fr;gap:12px;margin-top:0}
+    .pcard{padding:22px}
+
+    .cpin{padding:120px 0 116px;clip-path:polygon(0 36px,100% 0,100% calc(100% - 36px),0 100%);margin:20px 0}
+    .cpin h2{font-size:34px}
+    .cpin .cap{font-size:16px;margin-top:20px}
+    .diagram{margin-top:44px;padding:28px 0}
+    .dg-pc{display:none!important}
+    .dg-mo{display:block!important}
+    .cmp{grid-template-columns:1fr;gap:12px;margin-top:28px}
+    .cmp figure{grid-template-columns:104px 1fr;gap:18px;padding:12px 18px 12px 12px;border-radius:14px}
+    .cmp img{width:104px;height:104px}
+    .cmp figcaption b{font-size:16px}
+    .cmp figcaption span{font-size:13.5px;margin-top:4px}
+
+    .mods{grid-template-columns:1fr;gap:20px}
+    .mod:hover{transform:none}
+    .mb{padding:0 22px 22px}
+    .mb h3{font-size:26px}
+    .fig b{font-size:46px}
+    .mnote{grid-template-columns:1fr;gap:12px}
+
+    .install .grid{grid-template-columns:1fr;gap:8px}
+    .install .stick{position:sticky;top:52px;z-index:3;background:linear-gradient(180deg,var(--ink) 80%,rgba(7,7,10,0));padding:16px 0 20px}
+    .install .sh{margin-bottom:0}
+    .install .lead-h{display:none}
+    .bignum{margin-top:18px;gap:10px}
+    .bignum b{font-size:72px}
+    .bignum span{font-size:16px;padding-bottom:2px}
+    .prog{margin-top:16px;max-width:none}
+    .step{grid-template-columns:44px 1fr;gap:12px;padding:36px 0}
+    .step .sn{font-size:20px}
+    .step p{font-size:19px}
+
+    .specs{grid-template-columns:1fr 1fr;gap:10px}
+    .sp{min-height:0;padding:20px;gap:20px;border-radius:14px}
+    .sp dd{font-size:16px}
+    .sp.key{grid-column:1/-1;grid-row:auto}
+    .sp.key dd{font-size:22px}
+    .sp.key dd b{font-size:44px}
+    .sp.key svg{width:180px}
+
+    .faq .grid{grid-template-columns:1fr;gap:16px}
+    .qa button{grid-template-columns:36px 1fr 24px;padding:22px 0}
+    .qa .qt{font-size:16.5px}
+    .qa .ans p{padding:0 8px 24px 48px;font-size:15px;line-height:1.8}
+
+    .foot{padding:72px 0 40px}
+    .foot .ghost{font-size:80px;margin-left:-6px}
+    .foot .row{flex-direction:column;align-items:flex-start;gap:12px;margin-top:32px;font-size:13px}
+  }
+</style>
+<style id="motion">
+  /* hero entrance — headline → sub → buttons → graphic */
+  @keyframes inUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+  @keyframes inWm{from{opacity:0;transform:translateX(-120px) skewX(-10deg) rotate(-6deg);filter:blur(10px)}to{opacity:1;transform:skewX(-10deg) rotate(-6deg);filter:blur(0)}}
+  @keyframes inWmMo{from{opacity:0;transform:translateX(-60px) skewX(-10deg) rotate(-8deg)}to{opacity:1;transform:skewX(-10deg) rotate(-8deg)}}
+  @keyframes draw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+  @keyframes pop{0%{opacity:0;transform:scale(.2) rotate(-90deg)}70%{opacity:1;transform:scale(1.25) rotate(8deg)}100%{opacity:1;transform:none}}
+  @keyframes twinkle{0%,100%{opacity:.25}50%{opacity:.9}}
+  @keyframes flare{0%,100%{opacity:.35}50%{opacity:.6}}
+  html.js .h-in{animation:inUp .9s cubic-bezier(.2,.8,.2,1) both;animation-delay:var(--d,0s)}
+  html.js .wm{animation:inWm 1.4s cubic-bezier(.2,.8,.2,1) 1.0s both}
+  html.js .draw-m{stroke-dasharray:1 1;animation:draw 1.7s cubic-bezier(.6,.05,.25,1) 1.25s both}
+  html.js .star-head{transform-box:fill-box;transform-origin:center;animation:pop .7s cubic-bezier(.2,.8,.2,1) 2.75s both}
+  html.js .star-head .fl{animation:flare 3s ease-in-out 3.5s infinite}
+  @keyframes cueDrop{0%{transform:translateY(-6px);opacity:0}30%{opacity:1}75%{opacity:1}100%{transform:translateY(8px);opacity:0}}
+  html.js .cue-a{animation:cueDrop 2.4s cubic-bezier(.4,0,.2,1) 2.2s infinite}
+  /* tab panel entry signal (v4) */
+  @keyframes sig{0%{transform:scaleX(0);opacity:1;box-shadow:0 0 14px rgba(142,146,240,.9)}50%{transform:scaleX(1);opacity:1;box-shadow:0 0 14px rgba(142,146,240,.9)}100%{transform:scaleX(1);opacity:.45;box-shadow:none}}
+  @keyframes panIn{from{transform:translateY(28px)}to{transform:none}}
+  html.js .panel.sig h3::after{animation:sig 1.2s cubic-bezier(.2,.8,.2,1) .12s both}
+  html.js .panel.sig{animation:panIn .6s cubic-bezier(.2,.8,.2,1) both}
+  html.js .twk circle{animation:twinkle 3.2s ease-in-out infinite}
+  html.js .twk circle:nth-child(2n){animation-delay:1.1s}
+  html.js .twk circle:nth-child(3n){animation-delay:2s}
+
+  /* scroll reveal (once) — direction per section */
+  html.js [data-reveal]{opacity:0;transition:opacity .9s cubic-bezier(.2,.8,.2,1),transform .9s cubic-bezier(.2,.8,.2,1),filter .9s ease;transition-delay:var(--rd,0s)}
+  html.js [data-reveal="up"]{transform:translateY(40px)}
+  html.js [data-reveal="left"]{transform:translateX(-48px)}
+  html.js [data-reveal="right"]{transform:translateX(56px)}
+  html.js [data-reveal="scale"]{transform:scale(.92)}
+  html.js [data-reveal="blur"]{filter:blur(12px);transform:translateY(16px)}
+  html.js [data-reveal].in{opacity:1;transform:none;filter:none}
+  /* line drawing (C-pin diagram + tire star) */
+  html.js .dl{stroke-dasharray:1 1;stroke-dashoffset:1;transition:stroke-dashoffset 1.6s cubic-bezier(.6,.05,.25,1);transition-delay:var(--dd,0s)}
+  html.js .dl.f{fill-opacity:0;transition:stroke-dashoffset 1.6s cubic-bezier(.6,.05,.25,1) var(--dd,0s),fill-opacity .8s ease calc(var(--dd,0s) + 1.2s)}
+  html.js .drawn .dl{stroke-dashoffset:0;fill-opacity:1}
+  html.js .dg .lb{opacity:0;transition:opacity .6s ease;transition-delay:var(--dd,0s)}
+  html.js .drawn .lb{opacity:1}
+  html.js .tread-m{stroke-dasharray:1 1;stroke-dashoffset:1;transition:stroke-dashoffset 2.8s cubic-bezier(.5,0,.2,1)}
+  html.js .drawn .tread-m{stroke-dashoffset:0}
+  /* reveal of mask-less fills on .dg */
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation:none!important;transition:none!important}
+    html{scroll-behavior:auto}
+  }
 </style>
 </head>
 <body>
-
-<header class="hero">
-  <svg class="sky" viewBox="0 0 1000 560" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-    <polyline class="trace" points="610,70 690,46 770,92 850,60 905,128 830,170 760,150"/>
-    <circle class="tw" cx="610" cy="70" r="2.2"/><circle cx="690" cy="46" r="1.6"/><circle class="tw" cx="770" cy="92" r="2.6"/>
-    <circle cx="850" cy="60" r="1.8"/><circle class="tw" cx="905" cy="128" r="2.4"/><circle cx="830" cy="170" r="1.6"/>
-    <circle class="tw" cx="760" cy="150" r="2"/>
-    <circle cx="120" cy="40" r="1" opacity=".5"/><circle cx="420" cy="28" r="1.2" opacity=".5"/>
-    <circle cx="960" cy="300" r="1" opacity=".4"/><circle cx="540" cy="120" r="1" opacity=".4"/>
-    <circle cx="300" cy="90" r="1" opacity=".35"/><circle cx="980" cy="30" r="1.2" opacity=".5"/>
-  </svg>
-  <div class="wrap">
-    <p class="eyebrow">비공식 팬 가이드 · 2026.11</p>
-    <h1>STAR TRACE 이어폰,<br><em>무선</em>으로 쓸까 그대로 쓸까</h1>
-    <p class="intro">굿즈 인이어 이어폰을 블루투스로 바꾸고 싶은 분, 음질을 올리고 싶은 분을 위한 정리입니다. 커넥터 규격부터 확인하세요.</p>
-    <figure class="pin">
-      <svg class="wide" viewBox="0 0 640 170" role="img" aria-label="이어폰 쪽 튀어나온 소켓에 케이블 쪽 덮개형 플러그가 씌워지는 C핀 구조">
-        <defs><marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="var(--night-sub)"/></marker></defs>
-        <rect x="40" y="40" width="180" height="90" rx="44" fill="none" stroke="var(--night-sub)" stroke-width="1.5"/>
-        <circle cx="96" cy="85" r="18" fill="none" stroke="var(--night-sub)" stroke-width="1" stroke-dasharray="3 4"/>
-        <text x="130" y="154" text-anchor="middle" font-size="13" fill="var(--night-sub)">이어폰 헤드</text>
-        <rect x="220" y="62" width="46" height="46" rx="5" fill="var(--night-2)" stroke="var(--night-ink)" stroke-width="1.5"/>
-        <text x="243" y="52" text-anchor="middle" font-size="12" fill="var(--night-ink)">튀어나온 소켓</text>
-        <line x1="266" y1="76" x2="300" y2="76" stroke="var(--star)" stroke-width="4" stroke-linecap="round"/>
-        <line x1="266" y1="94" x2="300" y2="94" stroke="var(--star)" stroke-width="4" stroke-linecap="round"/>
-        <text x="283" y="128" text-anchor="middle" font-size="12" fill="var(--star)">0.78mm 핀</text>
-        <path d="M315 85 h22" stroke="var(--night-sub)" stroke-width="1.5" marker-end="url(#ar)"/>
-        <path d="M350 52 h70 v66 h-70 v-12 h50 v-42 h-50 z" fill="var(--night-2)" stroke="var(--night-ink)" stroke-width="1.5"/>
-        <text x="385" y="42" text-anchor="middle" font-size="12" fill="var(--night-ink)">덮개형 플러그</text>
-        <path d="M420 85 C 480 85, 520 60, 600 70" fill="none" stroke="var(--night-sub)" stroke-width="3" stroke-linecap="round"/>
-        <text x="540" y="104" text-anchor="middle" font-size="13" fill="var(--night-sub)">케이블 / 블루투스 모듈</text>
-      </svg>
-      <svg class="narrow" viewBox="0 0 360 170" role="img" aria-label="이어폰 쪽 튀어나온 소켓에 케이블 쪽 덮개형 플러그가 씌워지는 C핀 구조">
-        <defs><marker id="ar2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="var(--night-sub)"/></marker></defs>
-        <rect x="8" y="58" width="92" height="70" rx="35" fill="none" stroke="var(--night-sub)" stroke-width="1.5"/>
-        <text x="54" y="150" text-anchor="middle" font-size="13" fill="var(--night-sub)">이어폰 헤드</text>
-        <rect x="100" y="73" width="36" height="40" rx="4" fill="var(--night-2)" stroke="var(--night-ink)" stroke-width="1.5"/>
-        <text x="118" y="60" text-anchor="middle" font-size="13" fill="var(--night-ink)">튀어나온 소켓</text>
-        <line x1="136" y1="85" x2="160" y2="85" stroke="var(--star)" stroke-width="4" stroke-linecap="round"/>
-        <line x1="136" y1="101" x2="160" y2="101" stroke="var(--star)" stroke-width="4" stroke-linecap="round"/>
-        <text x="150" y="140" text-anchor="middle" font-size="13" fill="var(--star)">0.78mm 핀</text>
-        <path d="M168 93 h16" stroke="var(--night-sub)" stroke-width="1.5" marker-end="url(#ar2)"/>
-        <path d="M194 62 h56 v62 h-56 v-10 h42 v-42 h-42 z" fill="var(--night-2)" stroke="var(--night-ink)" stroke-width="1.5"/>
-        <text x="226" y="48" text-anchor="middle" font-size="13" fill="var(--night-ink)">덮개형 플러그</text>
-        <path d="M250 93 C 285 93, 310 78, 352 82" fill="none" stroke="var(--night-sub)" stroke-width="3" stroke-linecap="round"/>
-        <text x="300" y="122" text-anchor="middle" font-size="13" fill="var(--night-sub)">케이블 / 모듈</text>
-      </svg>
-      <figcaption>설명서에는 '0.78mm 2-Pin'이라고 적혀 있지만, 소켓이 튀어나온 C핀(QDC형) 구조입니다. <strong>모듈은 반드시 C핀 버전으로 고르세요.</strong></figcaption>
-    </figure>
-  </div>
+<header class="top" id="top">
+  <a class="brand" href="#hero"><b>STAR TRACE</b><span>이어폰 가이드</span></a>
+  <nav class="nav" id="nav">
+    <a href="#purpose">목적별 추천</a><a href="#price">모듈 가격</a><a href="#spec">기본 사양</a><a href="#faq">FAQ</a>
+  </nav>
+  <button class="menu" type="button" aria-label="메뉴" aria-expanded="false" aria-controls="nav"><i></i><i></i></button>
 </header>
 
-<main class="wrap">
+<main>
+<section class="hero" id="hero">
+  <div class="layer" data-px=".32"><div class="wm" aria-hidden="true"><span>STAR</span><span class="l2 out">TRACE</span></div></div>
 
-<section aria-labelledby="pick">
-  <div class="sec-head">
-    <p class="eyebrow">목적별 추천</p>
-    <h2 id="pick">어떤 게 목적인가요?</h2>
-    <p class="lead">고르면 추천과 이유를 보여드려요.</p>
+  <div class="layer" data-px=".14">
+  <svg class="trail trail-pc" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <defs>
+      <linearGradient id="tg" gradientUnits="userSpaceOnUse" x1="2600" y1="-340" x2="300" y2="410">
+        <stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".45" stop-color="#C9CBFF" stop-opacity=".35"/><stop offset="1" stop-color="#fff" stop-opacity="1"/>
+      </linearGradient>
+      <linearGradient id="tb" gradientUnits="userSpaceOnUse" x1="2600" y1="-340" x2="300" y2="410">
+        <stop offset="0" stop-color="#4E51A2" stop-opacity="0"/><stop offset="1" stop-color="#6B6FD6" stop-opacity=".9"/>
+      </linearGradient>
+      <filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="6"/></filter>
+      <filter id="glow2" x="-200%" y="-200%" width="500%" height="500%"><feGaussianBlur stdDeviation="14"/></filter>
+      <filter id="rough"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="4"/><feDisplacementMap in="SourceGraphic" scale="3"/></filter>
+      <mask id="mk" maskUnits="userSpaceOnUse" x="0" y="-600" width="2800" height="1600">
+        <path class="draw-m" pathLength="1" d="M2600 -421 L1560 -60 C1200 65 870 205 520 382" fill="none" stroke="#fff" stroke-width="140"/>
+      </mask>
+    </defs>
+    <g mask="url(#mk)">
+      <g filter="url(#rough)" fill="none" stroke="url(#tb)">
+        <path d="M2600 -400 L1520 -50 C1180 60 860 190 520 360" stroke-width="10" stroke-dasharray="3 7"/>
+        <path d="M2600 -359 L1534 -14 C1194 96 874 226 534 396" stroke-width="10" stroke-dasharray="3 7"/>
+      </g>
+      <g fill="none" stroke="#fff" stroke-linecap="round" opacity=".18">
+        <path d="M1500 60 C1200 150 980 240 760 360" stroke-width="1"/>
+        <path d="M1480 -70 C1240 10 1040 80 860 160" stroke-width=".8"/>
+      </g>
+      <path d="M2600 -379 L1527 -32 C1187 78 867 208 527 378" fill="none" stroke="url(#tg)" stroke-width="10" filter="url(#glow)" opacity=".7"/>
+      <path d="M2600 -379 L1527 -32 C1187 78 867 208 527 378" fill="none" stroke="url(#tg)" stroke-width="2.4" stroke-linecap="round"/>
+    </g>
+    <g transform="translate(527 378)">
+      <g class="star-head">
+        <circle class="fl" r="38" fill="#8E92F0" opacity=".45" filter="url(#glow2)"/>
+        <path d="M0-22 L5.2-6.8 21-6.8 8.4 2.6 13 18 0 8.8 -13 18 -8.4 2.6 -21-6.8 -5.2-6.8Z" fill="#fff" transform="rotate(-14)"/>
+        <path d="M-60 0H60M0-60V60" stroke="#fff" stroke-width=".8" opacity=".5"/>
+      </g>
+    </g>
+    <g fill="#fff" class="twk">
+      <circle cx="1180" cy="520" r="1.4" opacity=".7"/><circle cx="1320" cy="300" r="1" opacity=".5"/>
+      <circle cx="960" cy="610" r="1.1" opacity=".5"/><circle cx="240" cy="180" r="1" opacity=".4"/>
+      <circle cx="1060" cy="140" r="1.2" opacity=".6"/><circle cx="700" cy="560" r=".9" opacity=".4"/>
+      <circle cx="1390" cy="640" r="1.3" opacity=".5"/><circle cx="420" cy="260" r="1" opacity=".35"/>
+    </g>
+  </svg>
+
+  <svg class="trail trail-mo" viewBox="0 0 375 812" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <defs>
+      <linearGradient id="mg" gradientUnits="userSpaceOnUse" x1="400" y1="10" x2="70" y2="240">
+        <stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#C9CBFF" stop-opacity=".35"/><stop offset="1" stop-color="#fff"/>
+      </linearGradient>
+      <linearGradient id="mb" gradientUnits="userSpaceOnUse" x1="400" y1="10" x2="70" y2="240">
+        <stop offset="0" stop-color="#4E51A2" stop-opacity="0"/><stop offset="1" stop-color="#6B6FD6" stop-opacity=".9"/>
+      </linearGradient>
+      <filter id="mglow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="4"/></filter>
+      <filter id="mglow2" x="-200%" y="-200%" width="500%" height="500%"><feGaussianBlur stdDeviation="10"/></filter>
+      <filter id="mrough"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="4"/><feDisplacementMap in="SourceGraphic" scale="2"/></filter>
+      <mask id="mmk" maskUnits="userSpaceOnUse" x="0" y="-140" width="480" height="520">
+        <path class="draw-m" pathLength="1" d="M430 -8 C310 78 210 148 80 240" fill="none" stroke="#fff" stroke-width="70"/>
+      </mask>
+    </defs>
+    <g mask="url(#mmk)">
+      <g filter="url(#mrough)" fill="none" stroke="url(#mb)">
+        <path d="M400 0 C300 70 200 140 82 226" stroke-width="6" stroke-dasharray="2 5"/>
+        <path d="M412 18 C312 88 212 158 94 244" stroke-width="6" stroke-dasharray="2 5"/>
+      </g>
+      <path d="M406 9 C306 79 206 149 88 235" fill="none" stroke="url(#mg)" stroke-width="7" filter="url(#mglow)" opacity=".7"/>
+      <path d="M406 9 C306 79 206 149 88 235" fill="none" stroke="url(#mg)" stroke-width="1.8" stroke-linecap="round"/>
+    </g>
+    <g transform="translate(88 235)">
+      <g class="star-head">
+        <circle class="fl" r="26" fill="#8E92F0" opacity=".45" filter="url(#mglow2)"/>
+        <path d="M0-14 L3.3-4.3 13.3-4.3 5.3 1.7 8.2 11.4 0 5.6 -8.2 11.4 -5.3 1.7 -13.3-4.3 -3.3-4.3Z" fill="#fff" transform="rotate(-14)"/>
+        <path d="M-38 0H38M0-38V38" stroke="#fff" stroke-width=".6" opacity=".5"/>
+      </g>
+    </g>
+    <g fill="#fff" class="twk"><circle cx="320" cy="300" r="1" opacity=".6"/><circle cx="40" cy="130" r=".9" opacity=".4"/><circle cx="250" cy="90" r="1" opacity=".5"/><circle cx="350" cy="250" r=".8" opacity=".4"/></g>
+  </svg>
   </div>
-  <div class="goals" role="tablist">
-    <button role="tab" aria-selected="true" data-goal="sound"><span class="g-name">음질이 최우선</span><span class="g-cost">추가 비용 0원</span></button>
-    <button role="tab" aria-selected="false" data-goal="wireless"><span class="g-name">무선으로 편하게</span><span class="g-cost">약 2만원</span></button>
-    <button role="tab" aria-selected="false" data-goal="premium"><span class="g-name">무선 + 음질 최우선</span><span class="g-cost">$230 이상</span></button>
+
+  <svg class="grain" aria-hidden="true"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="3" stitchTiles="stitch"/><feColorMatrix values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 1.4 -.2"/></filter><rect width="100%" height="100%" filter="url(#n)"/></svg>
+  <svg class="grain2" aria-hidden="true"><filter id="n2"><feTurbulence type="fractalNoise" baseFrequency="2.2" numOctaves="1" seed="9"/><feColorMatrix values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 2 -1"/></filter><rect width="100%" height="100%" filter="url(#n2)"/></svg>
+
+  <div class="copy">
+    <p class="eyebrow h-in" style="--d:.05s"><i></i>비공식 팬 가이드 · 2026.11</p>
+    <p class="pre h-in" style="--d:.15s">STAR TRACE 이어폰,</p>
+        <h1 class="h-in" style="--d:.25s"><em>무선</em>으로 쓸까<br><span class="soft">그대로 쓸까</span></h1>
+    <p class="intro h-in" style="--d:.55s">굿즈 인이어 이어폰을 블루투스로 바꾸고 싶은 분, 음질을 올리고 싶은 분을 위한 정리입니다. <strong class="w">커넥터 규격부터 확인하세요.</strong></p>
+    <a class="cue h-in" href="#purpose" style="--d:.8s" aria-label="아래로 — 목적별 추천으로"><span>아래로</span><svg viewBox="0 0 14 40" aria-hidden="true"><g class="cue-a" fill="none" stroke="#fff" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 2V36"/><path d="M1.5 30.5L7 36l5.5-5.5"/></g></svg></a>
   </div>
-  <div class="answer" id="answer" role="tabpanel" aria-live="polite"></div>
+
+  <aside class="pin h-in" style="--d:1.1s">
+    <b>모듈은 반드시 <span>C핀 버전</span>으로 고르세요.</b>
+    설명서에는 '0.78mm 2-Pin'이라고 적혀 있지만, 소켓이 튀어나온 C핀(QDC형) 구조입니다.
+  </aside>
 </section>
 
-<section aria-labelledby="spec">
-  <div class="sec-head">
-    <p class="eyebrow">Spec sheet</p>
-    <h2 id="spec">기본 사양</h2>
-    <p class="lead">공식 설명서 기준입니다.</p>
-  </div>
-  <dl class="spec">
-    <div><dt>커넥터</dt><dd class="key">C핀형 2핀 (<span class="num">0.78mm</span>)</dd></div>
-    <div><dt>드라이버</dt><dd><span class="num">10mm</span> 다이내믹, 티타늄 코팅 진동판</dd></div>
-    <div><dt>임피던스 / 감도</dt><dd class="num">20Ω / 108dB</dd></div>
-    <div><dt>기본 케이블</dt><dd>USB-C, DAC 내장 (최대 <span class="num">24bit/96kHz</span>)</dd></div>
-    <div><dt>케이블 길이</dt><dd><span class="num">120cm</span>, 4가닥 은도금</dd></div>
-    <div><dt>마이크</dt><dd>있음 (리모컨 버튼)</dd></div>
-  </dl>
-</section>
+<!-- 01 목적별 추천 -->
+<section class="sec purpose" id="purpose">
+  <div class="ghost" aria-hidden="true" data-reveal="right">01</div>
+  <div class="wrap">
+    <header class="sh">
+      <div data-reveal="up"><p class="eb"><span class="no">01</span><i></i>목적별 추천</p><h2>어떤 게 목적인가요?</h2></div>
+      <p class="lead" data-reveal="up" style="--rd:.1s">고르면 추천과 이유를 보여드려요.</p>
+    </header>
 
-<section aria-labelledby="modules">
-  <div class="sec-head">
-    <p class="eyebrow">C핀 블루투스 모듈</p>
-    <h2 id="modules">호환 블루투스 모듈 가격</h2>
-    <p class="lead">모델마다 배터리·터치·연결거리 같은 미묘한 차이는 있지만, 이 가격대에선 음질 차이가 거의 없어요. 그래서 C핀이 확인된 것 중 가장 싼 걸 추천합니다.</p>
-  </div>
-  <div class="refresh">
-    <button type="button" id="refreshBtn">가격 새로고침</button>
-    <span id="priceStatus" aria-live="polite"></span>
-  </div>
-  <div class="tbl">
-    <table>
-      <thead><tr><th>모델</th><th>다른 점</th><th>호환</th><th>알리 가격</th><th></th></tr></thead>
-      <tbody id="mods"></tbody>
-    </table>
-  </div>
-  <p class="note">가격은 알리익스프레스 기준이며, 가격이 낮은 순으로 정렬됩니다. 아이폰은 AAC로만 연결돼서 aptX 지원 여부는 상관없어요.</p>
-</section>
+    <div class="tabs" role="tablist" aria-label="목적" data-reveal="up" style="--rd:.15s">
+      <span class="ind" aria-hidden="true"></span>
+      <button class="tab" role="tab" id="t-sound" aria-controls="p-sound" aria-selected="false" tabindex="0" data-goal="sound"><span class="tn">A</span><span class="tl">음질이 최우선</span><span class="tc">추가 비용 <b data-count="0">0</b>원</span></button>
+      <button class="tab" role="tab" id="t-wireless" aria-controls="p-wireless" aria-selected="false" tabindex="-1" data-goal="wireless"><span class="tn">B</span><span class="tl">무선으로 편하게</span><span class="tc">약 <b data-count="2">2</b>만원</span></button>
+      <button class="tab" role="tab" id="t-premium" aria-controls="p-premium" aria-selected="false" tabindex="-1" data-goal="premium"><span class="tn">C</span><span class="tl">무선 + 음질 최우선</span><span class="tc">$<b data-count="230">230</b> 이상</span></button>
+    </div>
 
-<section aria-labelledby="howto">
-  <div class="sec-head">
-    <p class="eyebrow">장착 순서</p>
-    <h2 id="howto">모듈 끼우는 법</h2>
-  </div>
-  <ol class="steps">
-    <li>기본 케이블을 뺄 때는 비틀지 말고 곧게 당겨 주세요.</li>
-    <li>모듈의 L/R 표시와 이어폰 좌우를 맞춥니다.</li>
-    <li>핀 방향을 확인하고 천천히 곧게 끝까지 밀어 넣으세요. 살짝 빡빡할 수 있어요.</li>
-    <li>케이스에 넣어 한 번 충전한 뒤 페어링합니다.</li>
-  </ol>
-</section>
-
-<section aria-labelledby="faq">
-  <div class="sec-head">
-    <p class="eyebrow">FAQ</p>
-    <h2 id="faq">궁금하실 수 있는 내용</h2>
-  </div>
-  <div class="faq">
-  <details><summary>업그레이드 케이블로 줄갈이하면 음질이 좋아지나요?</summary>
-    <p>거의 차이가 없어요. 음질의 상한선은 이어폰 헤드(드라이버)가 정하고, 케이블은 전달만 합니다. 게다가 기본 케이블에는 DAC가 들어 있어서, 일반 3.5mm 케이블로 바꾸면 별도 동글이 필요해집니다.</p></details>
-  <details><summary>블루투스 모듈마다 음질이 다른가요?</summary>
-    <p>달라요. 모듈 안에 소리를 만드는 칩(DAC)과 앰프가 들어 있기 때문이에요. 다만 2만~5만원대끼리는 차이가 작고, 체감되는 차이는 20만원대 이상 모듈부터입니다. 그래도 헤드 실력 이상으로는 올라가지 않아요.</p></details>
-  <details><summary>일반 0.78mm 2핀 모듈을 사도 되나요?</summary>
-    <p>그냥 꽂으면 고정이 불안정해요. 소켓이 튀어나온 C핀 구조라서, 일반 2핀 모듈을 쓸 땐 C핀 변환 젠더를 끼우세요. 가성비 모듈은 처음부터 C핀 버전을 사는 게 간편합니다.</p></details>
-  <details><summary>유선으로 더 좋게 들을 방법은요?</summary>
-    <p>기본 케이블을 그대로 쓰는 게 가장 좋아요. 외관을 안 바꾸고 소리를 다듬는 가장 쉬운 방법은 이어팁 교체예요. 귀에 맞는 팁으로 바꾸면 차음과 저음이 확실히 달라져요.</p></details>
-  <details><summary>헤드 속 드라이버만 좋은 걸로 바꿀 수 있나요?</summary>
-    <p>기술적으로는 가능하지만 추천하지 않아요. 셸이 본드로 붙어 있어 여는 과정에서 외관이 상할 수 있고, 납때가 필요하며, 셸 구조에 맞춘 튜닝이 틀어져 오히려 소리가 나빠질 수 있어요. 굿즈는 그대로 두고, 음질용 이어폰을 따로 쓰는 게 안전합니다.</p></details>
+    <div class="panels" data-reveal="up" style="--rd:.25s">
+      <div class="panel empty on" id="p-none" aria-live="polite">
+        <svg viewBox="0 0 24 40" aria-hidden="true"><path d="M12 38V4M4 12l8-8 8 8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <p class="e1">고르면 추천과 이유를 보여드려요.</p>
+        <p class="e2">위에서 목적을 하나 골라 주세요</p>
+      </div>
+      <div class="panel" role="tabpanel" id="p-sound" aria-labelledby="t-sound">
+        <div><p class="pk"><b>A</b>음질이 최우선</p><h3>기본 줄 이어폰 그대로 쓰세요</h3><p class="sub">유선 USB-C 케이블이 이 이어폰의 최고 음질입니다.</p></div>
+        <div class="why"><p class="k">WHY</p>
+          <p>음질은 이어폰 헤드(드라이버)가 상한선을 정합니다. 헤드를 바꾸지 않는 한 케이블이나 모듈로 그 이상 끌어올릴 수 없어요. 기본 케이블에는 24bit/96kHz DAC(디지털 신호를 소리로 바꾸는 칩)가 이미 들어 있어서, 블루투스로 바꾸면 오히려 압축 손실이 생깁니다.</p>
+          <ul class="chk"><li>줄갈이는 체감 차이가 거의 없어요</li><li>별도 동글 DAC도 필요 없어요</li></ul>
+        </div>
+      </div>
+      <div class="panel" role="tabpanel" id="p-wireless" aria-labelledby="t-wireless">
+        <div><p class="pk"><b>B</b>무선으로 편하게</p><h3>C핀 모듈 중 가장 싼 걸 사세요</h3><p class="sub">2만원대면 충분합니다.</p></div>
+        <div class="why"><p class="k">WHY</p>
+          <p>모델마다 배터리, 터치 조작 같은 미묘한 차이는 있지만 음질엔 거의 영향이 없어요. 그러니 C핀이 확인된 모델 중 가장 싼 걸 사시면 됩니다. 아래 가격표의 '알리 바로가기'로 알리 가격을 비교해 보세요.</p>
+          <ul class="chk"><li>반드시 C핀(QDC형) 버전으로</li><li>비싼 모델을 사도 소리 차이는 작아요</li><li>유선보다는 음질이 살짝 손해예요</li></ul>
+        </div>
+      </div>
+      <div class="panel" role="tabpanel" id="p-premium" aria-labelledby="t-premium">
+        <div><p class="pk"><b>C</b>무선 + 음질 최우선</p><h3>고급 블루투스 모듈 + C핀 변환 젠더</h3><p class="sub">가격은 상관없고 무선 중 가장 좋은 소리를 원할 때의 조합입니다.</p></div>
+        <div class="why"><p class="k">WHY</p>
+          <p>고급 모듈은 소리를 만드는 칩(DAC)과 앰프가 좋아서 2만원대 모듈보다 확실히 깨끗합니다. 다만 고급 모듈은 C핀 버전이 거의 없어서, 0.78mm 2핀 버전에 C핀 변환 젠더(커넥터 모양을 바꿔 주는 작은 어댑터)를 끼워 쓰셔야 해요. 그리고 헤드 실력 이상은 못 올리니, '기본 유선 케이블에 가까운 소리를 무선으로'가 현실적인 기대치입니다.</p>
+          <ul class="chk"><li>0.78mm 2핀 버전 + C핀 변환 젠더(수천 원)</li><li>아이폰은 LDAC(고음질 블루투스 전송 방식)가 안 되니 DAC 좋은 모델로</li><li>갤럭시는 LDAC 지원 모델이 유리</li></ul>
+        </div>
+        <div class="prem">
+          <div class="pcard"><b>FiiO UTWS5 (2025)</b><p>DAC를 양쪽에 하나씩 넣은 모델. 아이폰·갤럭시 모두 무난한 1순위</p><span>해외가 약 $230</span></div>
+          <div class="pcard"><b>FiiO LINK TWS</b><p>블루투스 6.0, LDAC·aptX Lossless 지원. 갤럭시에서 가장 좋은 코덱(블루투스 소리 전송 방식)을 쓸 수 있어요</p><span>가격 확인 필요</span></div>
+          <div class="pcard"><b>iFi GO pod Air</b><p>하이엔드 오디오 브랜드, LDAC 지원. 예산이 넉넉할 때</p><span>해외가 약 $390</span></div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
+<!-- 02 C핀 경고 + 커넥터 도해 (블루 색면) -->
+<section class="sec cpin" id="cpin">
+  <svg class="tread" viewBox="0 0 1440 1100" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <defs>
+      <filter id="tr"><feTurbulence type="fractalNoise" baseFrequency=".75" numOctaves="2" seed="7"/><feDisplacementMap in="SourceGraphic" scale="7"/></filter>
+      <mask id="tmk" maskUnits="userSpaceOnUse" x="-200" y="-200" width="1900" height="1500">
+        <path class="tread-m" pathLength="1" d="M980 40 L1290 1020 L470 420 L1490 420 L670 1020 Z" fill="none" stroke="#fff" stroke-width="120" stroke-linejoin="round"/>
+      </mask>
+    </defs>
+    <g mask="url(#tmk)" filter="url(#tr)" fill="none" stroke="#fff" stroke-linejoin="round">
+      <path d="M980 40 L1290 1020 L470 420 L1490 420 L670 1020 Z" stroke-width="54" stroke-dasharray="5 7" opacity=".12"/>
+      <path d="M980 40 L1290 1020 L470 420 L1490 420 L670 1020 Z" stroke-width="64" opacity=".05"/>
+    </g>
+  </svg>
+  <svg class="g" aria-hidden="true"><filter id="n3"><feTurbulence type="fractalNoise" baseFrequency=".8" numOctaves="3" stitchTiles="stitch"/><feColorMatrix values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 1.5 -.25"/></filter><rect width="100%" height="100%" filter="url(#n3)"/></svg>
+
+  <div class="wrap">
+    <p class="eb" data-reveal="blur"><span class="no">02</span><i></i>커넥터 규격</p>
+    <h2 data-reveal="blur" style="--rd:.08s">모듈은 반드시 <span class="c"><span>C핀 버전</span></span>으로 고르세요.</h2>
+    <p class="cap" data-reveal="blur" style="--rd:.16s">설명서에는 '0.78mm 2-Pin'이라고 적혀 있지만, 소켓이 튀어나온 C핀(QDC형) 구조입니다.</p>
+
+    <div class="diagram dg" data-draw>
+      <svg class="dg-pc" viewBox="0 0 1240 340" role="img" aria-label="커넥터 도해: 이어폰 헤드, 튀어나온 소켓, 0.78mm 핀, 덮개형 플러그, 케이블 또는 블루투스 모듈">
+        <g fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <!-- 이어폰 헤드 -->
+          <path class="dl" pathLength="1" style="--dd:0s" d="M60 170 C60 95 120 60 190 66 C250 72 278 112 278 150 L278 196 C278 236 248 270 190 274 C120 280 60 245 60 170 Z"/>
+          <path class="dl" pathLength="1" style="--dd:.1s" d="M110 170 C110 130 140 108 176 110 C206 112 226 134 226 164" opacity=".5"/>
+          <!-- 튀어나온 소켓 -->
+          <path class="dl f" pathLength="1" style="--dd:.35s" d="M278 138 H344 Q352 138 352 146 V202 Q352 210 344 210 H278" fill="rgba(255,255,255,.14)"/>
+          <circle class="dl" pathLength="1" style="--dd:.5s" cx="330" cy="160" r="5"/><circle class="dl" pathLength="1" style="--dd:.5s" cx="330" cy="188" r="5"/>
+          <!-- 0.78mm 핀 -->
+          <path class="dl" pathLength="1" style="--dd:.7s" d="M420 160 H500" stroke-width="5"/>
+          <path class="dl" pathLength="1" style="--dd:.75s" d="M420 188 H500" stroke-width="5"/>
+          <!-- 덮개형 플러그 -->
+          <path class="dl f" pathLength="1" style="--dd:.95s" d="M560 124 H690 Q712 124 712 146 V202 Q712 224 690 224 H560 V206 H600 V142 H560 Z" fill="rgba(7,7,10,.35)"/>
+          <!-- 분기: 케이블 / 모듈 -->
+          <path class="dl" pathLength="1" style="--dd:1.25s" d="M712 160 C800 160 830 70 940 70 H1180"/>
+          <path class="dl" pathLength="1" style="--dd:1.3s" d="M712 188 C800 188 830 262 900 262"/>
+          <path class="dl f" pathLength="1" style="--dd:1.45s" d="M900 238 H1040 C1110 238 1160 220 1180 180 C1188 164 1210 166 1208 184 C1196 250 1120 290 1040 290 H900 Q880 290 880 270 V258 Q880 238 900 238 Z" fill="rgba(255,255,255,.14)"/>
+          <!-- 치수 보조선 -->
+          <path class="dl" pathLength="1" style="--dd:1s" d="M420 214 V232 M500 214 V232 M420 226 H500" stroke-width="1" opacity=".6"/>
+        </g>
+        <g class="lb" style="--dd:.4s"><text x="169" y="316" text-anchor="middle">이어폰 헤드</text></g>
+        <g class="lb" style="--dd:.6s"><text x="315" y="112" text-anchor="middle">튀어나온 소켓</text></g>
+        <g class="lb" style="--dd:.9s"><text x="460" y="128" text-anchor="middle">0.78mm 핀</text></g>
+        <g class="lb" style="--dd:1.15s"><text x="636" y="100" text-anchor="middle">덮개형 플러그</text><rect x="604" y="248" width="64" height="24" rx="12" fill="#fff"/><text class="n" x="636" y="265" text-anchor="middle">C핀</text></g>
+        <g class="lb" style="--dd:1.5s"><text x="1180" y="54" text-anchor="end">케이블</text><text x="1044" y="324" text-anchor="middle">블루투스 모듈</text></g>
+      </svg>
+
+      <svg class="dg-mo" viewBox="0 0 335 560" role="img" aria-label="커넥터 도해: 이어폰 헤드, 튀어나온 소켓, 0.78mm 핀, 덮개형 플러그, 케이블 또는 블루투스 모듈">
+        <g fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path class="dl" pathLength="1" style="--dd:0s" d="M90 20 C150 14 186 40 186 76 C186 112 160 130 130 130 H50 C30 130 22 110 26 84 C32 46 50 24 90 20 Z"/>
+          <path class="dl f" pathLength="1" style="--dd:.3s" d="M78 130 V176 Q78 182 84 182 H128 Q134 182 134 176 V130" fill="rgba(255,255,255,.14)"/>
+          <circle class="dl" pathLength="1" style="--dd:.45s" cx="96" cy="166" r="4"/><circle class="dl" pathLength="1" style="--dd:.45s" cx="116" cy="166" r="4"/>
+          <path class="dl" pathLength="1" style="--dd:.6s" d="M96 210 V262" stroke-width="4"/><path class="dl" pathLength="1" style="--dd:.65s" d="M116 210 V262" stroke-width="4"/>
+          <path class="dl f" pathLength="1" style="--dd:.85s" d="M70 296 V384 Q70 398 84 398 H128 Q142 398 142 384 V296 H128 V324 H84 V296 Z" fill="rgba(7,7,10,.35)"/>
+          <path class="dl" pathLength="1" style="--dd:1.1s" d="M96 398 C96 450 60 470 40 540"/>
+          <path class="dl" pathLength="1" style="--dd:1.15s" d="M116 398 C116 440 170 450 196 450"/>
+          <path class="dl f" pathLength="1" style="--dd:1.3s" d="M200 432 H260 C290 432 306 420 312 398 C316 386 330 388 328 402 C322 448 296 470 262 470 H200 Q188 470 188 458 V444 Q188 432 200 432 Z" fill="rgba(255,255,255,.14)"/>
+        </g>
+        <g class="lb" style="--dd:.3s"><text x="206" y="70">이어폰 헤드</text></g>
+        <g class="lb" style="--dd:.5s"><text x="150" y="162">튀어나온 소켓</text></g>
+        <g class="lb" style="--dd:.8s"><text x="140" y="242">0.78mm 핀</text></g>
+        <g class="lb" style="--dd:1s"><text x="160" y="350">덮개형 플러그</text><rect x="160" y="362" width="64" height="24" rx="12" fill="#fff"/><text class="n" x="192" y="379" text-anchor="middle">C핀</text></g>
+        <g class="lb" style="--dd:1.4s"><text x="54" y="530">케이블</text><text x="200" y="500">블루투스 모듈</text></g>
+      </svg>
+    </div>
+
+    <div class="cmp">
+      <figure class="ok" data-reveal="blur"><img src="images/cca_mx1_ctype_case.jpg" alt="CCA MX1 C핀(QDC형) 버전 — 덮개형 플러그" loading="lazy" width="200" height="200"><figcaption><b>C핀(QDC형) 버전</b><span>가성비 모듈은 처음부터 C핀 버전을 사는 게 간편합니다.</span></figcaption></figure>
+      <figure class="no" data-reveal="blur" style="--rd:.1s"><img src="images/cca_mx1_htype_case.jpg" alt="CCA MX1 0.78mm 2핀 버전 — 핀 2개 노출" loading="lazy" width="200" height="200"><figcaption><b>0.78mm 2핀 버전</b><span>그냥 꽂으면 고정이 불안정해요. 일반 2핀 모듈을 쓸 땐 C핀 변환 젠더를 끼우세요.</span></figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- 03 호환 블루투스 모듈 가격 -->
+<section class="sec modules" id="price">
+  <div class="wrap">
+    <header class="sh">
+      <div data-reveal="up"><p class="eb"><span class="no">03</span><i></i>C핀 블루투스 모듈</p><h2>호환 블루투스 모듈 가격</h2></div>
+      <p class="lead" data-reveal="up" style="--rd:.1s">모델마다 배터리·터치·연결거리 같은 미묘한 차이는 있지만, 이 가격대에선 음질 차이가 거의 없어요. 그래서 C핀이 확인된 것 중 가장 싼 걸 추천합니다.</p>
+    </header>
+
+    <div class="mods" data-stagger>
+      <article class="mod" data-reveal="up">
+        <figure class="ph"><img src="images/kz_az09_scene_dark.jpg" alt="KZ AZ09 투명 이어훅 모듈과 케이스" loading="lazy"><img class="alt" src="images/kz_az09_hook_dark.jpg" alt="" loading="lazy"><span class="idx">01</span></figure>
+        <div class="mb">
+          <div class="mh"><h3>KZ AZ09</h3><span class="tag likely">C핀 버전 있음</span></div>
+          <div class="fig"><small>블루투스</small><b data-count="5.2" data-dec="1">5.2</b></div>
+          <div class="pc pro"><p class="k">장점</p><ul><li>가장 많이 팔림 · 1만원대부터</li><li>투명 은색 훅, 한쪽 4.5g</li><li>연결 안정 · 오래 껴도 편함</li></ul></div>
+          <div class="pc con"><p class="k">단점</p><ul><li>aptX(안드로이드용 고음질 전송 방식) 없음</li><li>마이크는 보통</li></ul></div>
+          <p class="price"><span>가격 연동 준비중</span><b>가격대: 1만원대 중반~2만원대</b></p>
+          <a class="go" href="https://www.aliexpress.com/w/wholesale-kz-az09-c-pin.html" target="_blank" rel="noopener">알리 바로가기 <i>↗</i></a>
+        </div>
+      </article>
+      <article class="mod" data-reveal="up">
+        <figure class="ph"><img src="images/cca_mx1_scene_hook_iem.jpg" alt="CCA MX1 이어훅 모듈과 케이스" loading="lazy"><img class="alt" src="images/cca_mx1_scene_case_open.jpg" alt="" loading="lazy"><span class="idx">02</span></figure>
+        <div class="mb">
+          <div class="mh"><h3>CCA MX1</h3><span class="tag likely">C핀 버전 있음</span></div>
+          <div class="fig"><small>블루투스</small><b data-count="6.0" data-dec="1">6.0</b></div>
+          <div class="pc pro"><p class="k">장점</p><ul><li>블루투스 6.0 · 케이스 800mAh</li><li>물리 버튼, 한쪽 5.5g</li><li>충전 케이스에 RGB 빛 링</li></ul></div>
+          <div class="pc con"><p class="k">단점</p><ul><li>리뷰가 아직 적음</li><li>aptX(안드로이드용 고음질 전송 방식) 없음</li></ul></div>
+          <p class="price"><span>가격 연동 준비중</span><b>가격대: 2만원대 초반</b></p>
+          <a class="go" href="https://www.aliexpress.com/w/wholesale-cca-mx1-c-pin.html" target="_blank" rel="noopener">알리 바로가기 <i>↗</i></a>
+        </div>
+      </article>
+      <article class="mod" data-reveal="up">
+        <figure class="ph"><img src="images/kz_an01_pair_dark.webp" alt="KZ AN01 이어훅 한 쌍" loading="lazy"><img class="alt" src="images/kz_an01_case_dark.webp" alt="" loading="lazy"><span class="idx">03</span></figure>
+        <div class="mb">
+          <div class="mh"><h3>KZ AN01</h3><span class="tag likely">C핀 버전 있음</span></div>
+          <div class="fig"><small>블루투스</small><b data-count="5.4" data-dec="1">5.4</b></div>
+          <div class="pc pro"><p class="k">장점</p><ul><li>LDAC 지원(갤럭시 유리) · 블루투스 5.4</li><li>ANC 노이즈 캔슬링(주변 소음 상쇄)</li><li>마이크 4개</li></ul></div>
+          <div class="pc con"><p class="k">단점</p><ul><li>ANC 는 오버이어만큼 세진 않음</li><li>LDAC+ANC 켜면 배터리 8시간 못 채움</li></ul></div>
+          <p class="price"><span>가격 연동 준비중</span><b>가격대: 3만원대 중후반</b></p>
+          <a class="go" href="https://www.aliexpress.com/w/wholesale-kz-an01.html" target="_blank" rel="noopener">알리 바로가기 <i>↗</i></a>
+        </div>
+      </article>
+    </div>
+    <div class="mnote" data-reveal="up">
+      <p>실시간 가격은 준비 중이에요. 가격이 없는 모델은 '알리 바로가기'로 알리에서 확인하세요.</p>
+      <p>가격은 알리익스프레스 기준이며, 가격이 낮은 순으로 정렬됩니다. 아이폰은 AAC(아이폰이 쓰는 전송 방식)로만 연결돼서 aptX 지원 여부는 상관없어요.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 04 장착 순서 -->
+<section class="sec install" id="install">
+  <div class="wrap grid">
+    <div class="stick">
+      <header class="sh" data-reveal="left"><div><p class="eb"><span class="no">04</span><i></i>장착 순서</p><h2>모듈 끼우는 법</h2></div></header>
+      <div class="bignum" aria-hidden="true" data-reveal="left" style="--rd:.1s"><b id="stepNo">01</b><span>/ 04</span></div>
+      <div class="prog" aria-hidden="true" data-reveal="left" style="--rd:.15s"><i id="stepBar"></i></div>
+    </div>
+    <ol class="steps">
+      <li class="step on" data-reveal="right"><span class="sn">01</span><p>기본 케이블을 뺄 때는 비틀지 말고 곧게 당겨 주세요.</p></li>
+      <li class="step" data-reveal="right"><span class="sn">02</span><p>모듈의 L/R 표시와 이어폰 좌우를 맞춥니다.</p></li>
+      <li class="step" data-reveal="right"><span class="sn">03</span><p>핀 방향을 확인하고 천천히 곧게 끝까지 밀어 넣으세요. 살짝 빡빡할 수 있어요.</p></li>
+      <li class="step" data-reveal="right"><span class="sn">04</span><p>케이스에 넣어 한 번 충전한 뒤 페어링합니다.</p></li>
+    </ol>
+  </div>
+</section>
+
+<!-- 05 기본 사양 -->
+<section class="sec spec" id="spec">
+  <div class="wrap">
+    <header class="sh">
+      <div data-reveal="scale"><p class="eb"><span class="no">05</span><i></i>Spec sheet</p><h2>기본 사양</h2></div>
+      <p class="lead" data-reveal="scale" style="--rd:.1s">공식 설명서 기준입니다.</p>
+    </header>
+    <dl class="specs" data-stagger>
+      <div class="sp key" data-reveal="scale">
+        <svg viewBox="0 0 100 100" aria-hidden="true"><path d="M50 4 L61 38 97 38 68 59 79 94 50 72 21 94 32 59 3 38 39 38Z" fill="none" stroke="#fff" stroke-width="1.2"/></svg>
+        <dt>커넥터</dt><dd>C핀형 2핀 <b><i>(</i>0.78mm<i>)</i></b></dd>
+      </div>
+      <div class="sp" data-reveal="scale"><dt>드라이버 <small>(소리를 내는 부품)</small></dt><dd>10mm 다이내믹, 티타늄 코팅 진동판</dd></div>
+      <div class="sp" data-reveal="scale"><dt>임피던스 / 감도 <small>(낮을수록 폰으로도 잘 울림 / 높을수록 소리가 큼)</small></dt><dd>20Ω / 108dB</dd></div>
+      <div class="sp" data-reveal="scale"><dt>기본 케이블</dt><dd>USB-C, DAC 내장 (최대 24bit/96kHz)</dd></div>
+      <div class="sp" data-reveal="scale"><dt>케이블 길이</dt><dd>120cm, 4가닥 은도금</dd></div>
+    </dl>
+    <dl class="specs" style="margin-top:16px;grid-template-columns:1fr" data-stagger>
+      <div class="sp" data-reveal="scale" style="min-height:0;flex-direction:row;align-items:center"><dt>마이크</dt><dd>있음 (리모컨 버튼)</dd></div>
+    </dl>
+  </div>
+</section>
+
+<!-- 06 FAQ -->
+<section class="sec faq" id="faq">
+  <div class="wrap grid">
+    <header data-reveal="blur"><p class="eb"><span class="no">06</span><i></i>FAQ</p><h2>궁금하실 수<br>있는 내용</h2></header>
+    <div class="qas">
+      <div class="qa open" data-reveal="blur"><button type="button" aria-expanded="true" aria-controls="a1"><span class="qn">Q1</span><span class="qt">업그레이드 케이블로 줄갈이하면 음질이 좋아지나요?</span><span class="pm"></span></button><div class="ans" id="a1"><p>거의 차이가 없어요. 음질의 상한선은 이어폰 헤드(드라이버)가 정하고, 케이블은 전달만 합니다. 게다가 기본 케이블에는 DAC가 들어 있어서, 일반 3.5mm 케이블로 바꾸면 별도 동글(폰에 꽂는 작은 DAC)이 필요해집니다.</p></div></div>
+      <div class="qa" data-reveal="blur"><button type="button" aria-expanded="false" aria-controls="a2"><span class="qn">Q2</span><span class="qt">블루투스 모듈마다 음질이 다른가요?</span><span class="pm"></span></button><div class="ans" id="a2"><p>달라요. 모듈 안에 소리를 만드는 칩(DAC)과 앰프(소리를 키우는 부품)가 들어 있기 때문이에요. 다만 2만~5만원대끼리는 차이가 작고, 체감되는 차이는 20만원대 이상 모듈부터입니다. 그래도 헤드 실력 이상으로는 올라가지 않아요.</p></div></div>
+      <div class="qa" data-reveal="blur"><button type="button" aria-expanded="false" aria-controls="a3"><span class="qn">Q3</span><span class="qt">일반 0.78mm 2핀 모듈을 사도 되나요?</span><span class="pm"></span></button><div class="ans" id="a3"><p>그냥 꽂으면 고정이 불안정해요. 소켓이 튀어나온 C핀 구조라서, 일반 2핀 모듈을 쓸 땐 C핀 변환 젠더를 끼우세요. 가성비 모듈은 처음부터 C핀 버전을 사는 게 간편합니다.</p></div></div>
+      <div class="qa" data-reveal="blur"><button type="button" aria-expanded="false" aria-controls="a4"><span class="qn">Q4</span><span class="qt">유선으로 더 좋게 들을 방법은요?</span><span class="pm"></span></button><div class="ans" id="a4"><p>기본 케이블을 그대로 쓰는 게 가장 좋아요. 외관을 안 바꾸고 소리를 다듬는 가장 쉬운 방법은 이어팁 교체예요. 귀에 맞는 팁으로 바꾸면 차음과 저음이 확실히 달라져요.</p></div></div>
+      <div class="qa" data-reveal="blur"><button type="button" aria-expanded="false" aria-controls="a5"><span class="qn">Q5</span><span class="qt">헤드 속 드라이버만 좋은 걸로 바꿀 수 있나요?</span><span class="pm"></span></button><div class="ans" id="a5"><p>기술적으로는 가능하지만 추천하지 않아요. 셸이 본드로 붙어 있어 여는 과정에서 외관이 상할 수 있고, 납때가 필요하며, 셸 구조에 맞춘 튜닝이 틀어져 오히려 소리가 나빠질 수 있어요. 굿즈는 그대로 두고, 음질용 이어폰을 따로 쓰는 게 안전합니다.</p></div></div>
+    </div>
+  </div>
+</section>
 </main>
 
-<footer>
-  <div class="wrap">
-    <p>비공식 팬 정보 페이지입니다. 제조사·소속사와 관련이 없습니다.</p>
-    <p>가격은 수시로 바뀌니 구매 전 판매 페이지에서 꼭 확인하세요.</p>
+<footer class="foot">
+  <div class="ghost" aria-hidden="true" data-reveal="left">STAR TRACE</div>
+  <div class="wrap row" data-reveal="up">
+    <div><p>비공식 팬 정보 페이지입니다. 제조사·소속사와 관련이 없습니다.</p><p>가격은 수시로 바뀌니 구매 전 판매 페이지에서 꼭 확인하세요.</p></div>
+    <a href="#hero">TOP ↑</a>
   </div>
 </footer>
 
 <script>
-const answers = {
-  sound: {
-    title: "기본 줄 이어폰 그대로 쓰세요",
-    sub: "유선 USB-C 케이블이 이 이어폰의 최고 음질입니다.",
-    why: "음질은 이어폰 헤드(드라이버)가 상한선을 정합니다. 헤드를 바꾸지 않는 한 케이블이나 모듈로 그 이상 끌어올릴 수 없어요. 기본 케이블에는 24bit/96kHz DAC가 이미 들어 있어서, 블루투스로 바꾸면 오히려 압축 손실이 생깁니다.",
-    list: ["줄갈이는 체감 차이가 거의 없어요", "별도 동글 DAC도 필요 없어요"]
-  },
-  wireless: {
-    title: "C핀 모듈 중 가장 싼 걸 사세요",
-    sub: "2만원대면 충분합니다.",
-    why: "모델마다 배터리, 터치 조작 같은 미묘한 차이는 있지만 음질엔 거의 영향이 없어요. 그러니 C핀이 확인된 모델 중 가장 싼 걸 사시면 됩니다. 아래 가격표의 '검색 바로가기'로 알리 가격을 비교해 보세요.",
-    list: ["반드시 C핀(QDC형) 버전으로", "비싼 모델을 사도 소리 차이는 작아요", "유선보다는 음질이 살짝 손해예요"]
-  },
-  premium: {
-    title: "고급 블루투스 모듈 + C핀 변환 젠더",
-    sub: "가격은 상관없고 무선 중 가장 좋은 소리를 원할 때의 조합입니다.",
-    why: "고급 모듈은 소리를 만드는 칩(DAC)과 앰프가 좋아서 2만원대 모듈보다 확실히 깨끗합니다. 다만 고급 모듈은 C핀 버전이 거의 없어서, 0.78mm 2핀 버전에 C핀 변환 젠더를 끼워 쓰셔야 해요. 그리고 헤드 실력 이상은 못 올리니, '기본 유선 케이블에 가까운 소리를 무선으로'가 현실적인 기대치입니다.",
-    list: ["0.78mm 2핀 버전 + C핀 변환 젠더(수천 원)", "아이폰은 LDAC가 안 되니 DAC 좋은 모델로", "갤럭시는 LDAC 지원 모델이 유리"],
-    picks: [
-      { name:"FiiO UTWS5 (2025)", desc:"DAC를 양쪽에 하나씩 넣은 모델. 아이폰·갤럭시 모두 무난한 1순위", price:"해외가 약 $230" },
-      { name:"FiiO LINK TWS", desc:"블루투스 6.0, LDAC·aptX Lossless 지원. 갤럭시에서 가장 좋은 코덱을 쓸 수 있어요", price:"가격 확인 필요" },
-      { name:"iFi GO pod Air", desc:"하이엔드 오디오 브랜드, LDAC 지원. 예산이 넉넉할 때", price:"해외가 약 $390" }
-    ]
+/* interactions — tabs · FAQ · mobile nav (motion 과 별개로 항상 작동) */
+(function(){
+  var tabs=[].slice.call(document.querySelectorAll('.tab')), ind=document.querySelector('.ind'), wrap=document.querySelector('.panels');
+  function placeInd(t){
+    if(!t||!ind) return;
+    var mo=innerWidth<=760;
+    ind.style.width=(mo?t.parentNode.clientWidth:t.offsetWidth)+'px';
+    ind.style.height=t.offsetHeight+'px';
+    ind.style.transform='translate('+(mo?0:t.offsetLeft)+'px,'+(mo?t.offsetTop:0)+'px)';
   }
-};
-// 알리 API 연동 시 price / asOf 값만 갱신하면 정렬·최저가 표시가 자동으로 바뀝니다
-const modules = [
-  { name:"CCA MX1", diff:"블루투스 6.0, 케이스 800mAh", compat:"ok", compatText:"C핀 장착 확인", price:null, asOf:"", url:"https://www.aliexpress.com/w/wholesale-cca-mx1-c-pin.html" },
-  { name:"KZ AZ15", diff:"aptX 지원(갤럭시 유리), 최대 54시간", compat:"likely", compatText:"C핀 버전 · 호환 예상", price:null, asOf:"", url:"https://www.aliexpress.com/w/wholesale-kz-az15.html" },
-  { name:"KZ AZ09 Pro", diff:"aptX 지원, 블루투스 5.2", compat:"likely", compatText:"C핀 버전 · 호환 예상", price:null, asOf:"", url:"https://www.aliexpress.com/w/wholesale-kz-az09-pro.html" }
-];
-function renderModules(){
-  const sorted = [...modules].sort((a,b)=>(a.price ?? Infinity)-(b.price ?? Infinity));
-  const best = sorted.find(m=>m.price!=null && m.compat==="ok");
-  document.getElementById("mods").innerHTML = sorted.map(m=>{
-    const isBest = m===best;
-    const price = m.price!=null
-      ? `<td class="price">${m.price.toLocaleString("ko-KR")}원<small>${m.asOf} 기준</small></td>`
-      : `<td class="price none"><a class="go-search" href="${m.url}" target="_blank" rel="noopener">검색 바로가기 ↗</a><small>가격은 알리에서 확인</small></td>`;
-    return `<tr class="${isBest?"is-best":""}">
-      <td class="m-name"><strong>${m.name}</strong>${isBest?` <span class="tag best">최저가 추천</span>`:""}</td>
-      <td class="m-diff">${m.diff}</td>
-      <td class="m-compat"><span class="tag ${m.compat}">${m.compatText}</span></td>
-      ${price}
-      <td class="m-link">${m.price!=null ? `<a href="${m.url}" target="_blank" rel="noopener">알리에서 보기 ↗</a>` : ""}</td>
-    </tr>`;
-  }).join("");
-}
-renderModules();
-
-// 가격 서버 주소 (워커 배포 후 여기에 넣기)
-const PRICE_API_URL = "";
-const statusEl = document.getElementById("priceStatus");
-const refreshBtn = document.getElementById("refreshBtn");
-async function refreshPrices(){
-  if(!PRICE_API_URL){ refreshBtn.hidden = true; statusEl.textContent = "실시간 가격은 준비 중이에요. 가격이 없는 모델은 '검색 바로가기'로 알리에서 확인하세요."; return; }
-  refreshBtn.disabled = true; statusEl.textContent = "가격을 불러오는 중…";
-  try{
-    const res = await fetch(PRICE_API_URL, {cache:"no-store"});
-    if(!res.ok) throw new Error(res.status);
-    const data = await res.json();
-    modules.forEach(m=>{
-      const p = data.items && data.items[m.name];
-      if(p && p.price){ m.price = p.price; m.asOf = "알리 실시간"; if(p.url) m.url = p.url; }
+  function fitPanels(){var on=wrap.querySelector('.panel.on'); if(on) wrap.style.height=on.offsetHeight+'px';}
+  var reduceM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var empty=document.getElementById('p-none'), tabsEl=document.querySelector('.tabs');
+  function show(goal,focus,signal){
+    if(empty) empty.classList.toggle('on',!goal);
+    if(tabsEl) tabsEl.classList.toggle('has',!!goal);
+    tabs.forEach(function(t){
+      var on=t.dataset.goal===goal, p=document.getElementById(t.getAttribute('aria-controls'));
+      var was=p.classList.contains('on');
+      t.setAttribute('aria-selected',on); t.tabIndex=on?0:-1;
+      p.classList.toggle('on',on);
+      p.classList.remove('sig');
+      if(on && signal && !was){p.offsetWidth; p.classList.add('sig');}
+      if(on){placeInd(t); if(focus) t.focus();}
     });
-    renderModules();
-    const t = data.updatedAt ? new Date(data.updatedAt) : new Date();
-    statusEl.textContent = `${t.toLocaleString("ko-KR",{month:"long",day:"numeric",hour:"2-digit",minute:"2-digit"})} 기준 가격`;
-  }catch(e){
-    statusEl.textContent = "가격을 불러오지 못했어요. 잠시 후 다시 눌러 주세요.";
-  }finally{ refreshBtn.disabled = false; }
-}
-refreshBtn.addEventListener("click", refreshPrices);
-refreshPrices();
-const box = document.getElementById("answer");
-const tabs = document.querySelectorAll(".goals button");
-function show(key){
-  const a = answers[key];
-  box.innerHTML = `<div><h3>${a.title}</h3><p class="sub">${a.sub}</p></div>
-    <div class="why"><strong>WHY</strong>${a.why}</div>
-    <ul>${a.list.map(i=>`<li>${i}</li>`).join("")}</ul>
-    ${a.picks ? `<div class="picks">${a.picks.map((p,i)=>`<div class="pick"><div class="pick-top"><strong>${p.name}</strong>${i===0?`<span class="tag best">추천</span>`:""}</div><p>${p.desc}</p><small>${p.price}</small></div>`).join("")}</div>` : ""}`;
-  tabs.forEach(t=>t.setAttribute("aria-selected", t.dataset.goal===key ? "true":"false"));
-}
-tabs.forEach(t=>t.addEventListener("click",()=>show(t.dataset.goal)));
-show("sound");
+    fitPanels();
+  }
+  /* MO: 탭을 누르면 답변 패널을 GNB 바로 아래로 (PC 는 교차 페이드만) */
+  function bringPanel(){
+    if(innerWidth>760) return;
+    wrap.scrollIntoView({behavior:reduceM?'auto':'smooth',block:'start'});
+  }
+  tabs.forEach(function(t,i){
+    t.addEventListener('click',function(){show(t.dataset.goal,false,true); bringPanel();});
+    t.addEventListener('keydown',function(e){
+      var d=e.key==='ArrowRight'||e.key==='ArrowDown'?1:e.key==='ArrowLeft'||e.key==='ArrowUp'?-1:0;
+      if(d){e.preventDefault(); show(tabs[(i+d+tabs.length)%tabs.length].dataset.goal,true,true);}
+    });
+  });
+  addEventListener('resize',function(){placeInd(document.querySelector('.tab[aria-selected="true"]')); fitPanels();});
+  addEventListener('load',function(){show(null)});
+  show(null);
+
+  /* FAQ — height animation */
+  document.querySelectorAll('.qa').forEach(function(q){
+    var b=q.querySelector('button'), a=q.querySelector('.ans');
+    if(q.classList.contains('open')) a.style.height='auto';
+    b.addEventListener('click',function(){
+      var open=!q.classList.contains('open');
+      var h=a.scrollHeight;
+      if(open){a.style.height=h+'px'; a.addEventListener('transitionend',function f(){if(q.classList.contains('open'))a.style.height='auto'; a.removeEventListener('transitionend',f)});}
+      else{a.style.height=h+'px'; a.offsetHeight; a.style.height='0px';}
+      q.classList.toggle('open',open); b.setAttribute('aria-expanded',open);
+    });
+  });
+
+  /* mobile nav */
+  var mb=document.querySelector('.menu');
+  mb.addEventListener('click',function(){var o=document.documentElement.classList.toggle('nav-open'); mb.setAttribute('aria-expanded',o)});
+  document.querySelectorAll('.nav a').forEach(function(a){a.addEventListener('click',function(){document.documentElement.classList.remove('nav-open'); mb.setAttribute('aria-expanded','false')})});
+})();
+</script>
+<script id="motion">
+(function(){
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var isMo=function(){return innerWidth<=760};
+
+  /* GNB thin + parallax + hero fade (rAF · transform/opacity only) */
+  var top=document.getElementById('top'), layers=[].slice.call(document.querySelectorAll('[data-px]')), hero=document.getElementById('hero'), copy=hero.querySelector('.copy');
+  var ticking=false;
+  function onScroll(){
+    var y=scrollY;
+    top.classList.toggle('thin',y>40);
+    if(!reduce && !isMo() && y<hero.offsetHeight*1.2){
+      layers.forEach(function(l){l.style.transform='translate3d(0,'+(y*parseFloat(l.dataset.px)).toFixed(1)+'px,0)'});
+      copy.style.transform='translate3d(0,'+(y*-.06).toFixed(1)+'px,0)';
+      copy.style.opacity=Math.max(0,1-y/(hero.offsetHeight*.75)).toFixed(3);
+    }
+    ticking=false;
+  }
+  addEventListener('scroll',function(){if(!ticking){ticking=true; requestAnimationFrame(onScroll)}},{passive:true});
+  onScroll();
+
+  if(reduce) return;
+
+  /* stagger children of grids (70ms) */
+  document.querySelectorAll('[data-stagger]').forEach(function(g){
+    [].slice.call(g.querySelectorAll('[data-reveal]')).forEach(function(el,i){el.style.setProperty('--rd',(i*.075)+'s')});
+  });
+  document.querySelectorAll('.qas .qa').forEach(function(el,i){el.style.setProperty('--rd',(i*.07)+'s')});
+
+  /* count-up */
+  function countUp(el){
+    var to=parseFloat(el.dataset.count), dec=+(el.dataset.dec||0), t0=null, dur=to===0?600:1300;
+    if(to===0){el.textContent='0'; return;}
+    function step(t){
+      if(!t0) t0=t; var p=Math.min(1,(t-t0)/dur), e=1-Math.pow(1-p,3);
+      el.textContent=(to*e).toFixed(dec);
+      if(p<1) requestAnimationFrame(step);
+    }
+    el.textContent=(0).toFixed(dec); requestAnimationFrame(step);
+  }
+
+  /* reveal once */
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(!e.isIntersecting) return;
+      e.target.classList.add('in');
+      e.target.querySelectorAll('[data-count]').forEach(countUp);
+      io.unobserve(e.target);
+    });
+  },{threshold:.15,rootMargin:'0px 0px -8% 0px'});
+  document.querySelectorAll('[data-reveal]').forEach(function(el){io.observe(el)});
+
+  /* line drawing — diagram + tire star */
+  var dio=new IntersectionObserver(function(es){
+    es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('drawn'); dio.unobserve(e.target);}});
+  },{threshold:.3});
+  document.querySelectorAll('[data-draw], .cpin').forEach(function(el){dio.observe(el)});
+
+  /* install — sticky + one step at a time */
+  var steps=[].slice.call(document.querySelectorAll('.step')), no=document.getElementById('stepNo'), bar=document.getElementById('stepBar');
+  var sio=new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(!e.isIntersecting) return;
+      var i=steps.indexOf(e.target);
+      steps.forEach(function(s,k){s.classList.toggle('on',k===i)});
+      no.textContent=('0'+(i+1)); bar.style.transform='scaleX('+((i+1)/steps.length)+')';
+    });
+  },{rootMargin:'-45% 0px -45% 0px'});
+  steps.forEach(function(s){sio.observe(s)});
+
+  /* magnetic buttons (PC only) */
+  document.querySelectorAll('.mag').forEach(function(b){
+    b.addEventListener('pointermove',function(e){
+      if(isMo()||e.pointerType!=='mouse') return;
+      var r=b.getBoundingClientRect(), x=(e.clientX-r.left-r.width/2)*.18, y=(e.clientY-r.top-r.height/2)*.3;
+      b.style.transform='translate('+x.toFixed(1)+'px,'+y.toFixed(1)+'px)';
+    });
+    b.addEventListener('pointerleave',function(){b.style.transform=''});
+  });
+})();
 </script>
 </body>
 </html>
